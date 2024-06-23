@@ -1,6 +1,6 @@
 function NavSideBar() {
   return (
-    <div className="h-[80px] md:w-[90px] md:rounded-r-[16px]  overflow-hidden bg-ebony-clay md:h-screen">
+    <div className="h-[80px] md:w-[90px] md:rounded-r-[16px]  overflow-hidden   bg-ebony-clay md:h-[99.5vh] bottom-0">
       {/* logo, theme switch, avatar */}
       <div className="flex  md:h-full md:flex-col items-center justify-between">
         {/* logo and theme switch */}

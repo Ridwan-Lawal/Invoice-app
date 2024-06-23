@@ -3,3 +3,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.form-section-header {
+  @apply text-cornflower-blue font-bold text-[15px];
+}
+
+.invoice-form-label {
+  @apply text-[13.5px] font-medium text-cornflower-blue text-opacity-80 block;
+}
+
+.invoice-form-input {
+  @apply border border-purple-300 border-opacity-[0.4] shadow-sm w-full py-3 px-4 focus:outline-none text-cinder font-semibold rounded-md text-[15px] focus:border-cornflower-blue;
+}
+
+/* Style for all scrollable elements */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; /* width of the entire scrollbar */
+}
+
+.btn-add-new {
+  @apply font-bold text-cornflower-blue text-opacity-90 flex items-center justify-center w-full gap-2 text-[15px]  py-3.5 rounded-3xl bg-cornflower-blue bg-opacity-5 hover:bg-opacity-[0.15] transition-colors mt-8;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* color of the track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #e8e6f7; /* color of the scroll thumb */
+
+  border-radius: 20px; /* roundness of the scroll thumb */
+  /* creates padding around scroll thumb */
+}

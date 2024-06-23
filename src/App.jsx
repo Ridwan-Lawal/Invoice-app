@@ -6,7 +6,7 @@ import PageNofFound from "./pages/PageNofFound";
 
 function App() {
   return (
-    <div className="min-h-screen overflow-auto ">
+    <div className="h-screen  font-spartan bg-lightBackgroundColor overflow-hidden border border-green-500">
       <BrowserRouter>
         <Routes>
           <Route element={<AppLayout />}>

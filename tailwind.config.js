@@ -22,7 +22,7 @@ export default {
         "polo-blue": "#98b1db",
         lavender: "#bb67d5",
         "link-water": "#cae4f0",
-        " beauty-bush": "#f4cdcc",
+        "beauty-bush": "#f4cdcc",
         "light-wisteria": "#cea7d7",
 
         // dark mode
