@@ -12,7 +12,7 @@ function AppLayout() {
           <InvoiceForm />
         </div>
       </div>
-      <main className="border border-blue-700 h-screen overflow-auto  md:w-[87vw] md:absolute right-0 bottom-0">
+      <main className="border border-blue-700 h-screen overflow-auto  md:w-[100vw] md:absolute right-0 bottom-0 custom-scrollbar  ">
         <Outlet />
       </main>
     </div>

@@ -6,7 +6,7 @@ const InvoiceContext = createContext();
 
 function InvoiceArrange({ children, onBlur }) {
   return (
-    <div onBlur={onBlur} className="flex flex-col items-center relative -z-10">
+    <div onBlur={onBlur} className="flex flex-col items-center relative ">
       <InvoiceContext.Provider value={{}}>{children}</InvoiceContext.Provider>
     </div>
   );
