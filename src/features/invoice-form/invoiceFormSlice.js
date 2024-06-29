@@ -2,6 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isFormOpen: false,
+  isCalendarOpen: false,
+  isPaymentTermsFocus: false,
+  isCalendarFocus: false,
+  paymentTerms: 30,
+  isPaymentTermsOpen: false,
 };
 
 const invoiceFormSlice = createSlice({
@@ -11,8 +16,38 @@ const invoiceFormSlice = createSlice({
     openingForm(state) {
       state.isFormOpen = !state.isFormOpen;
     },
+    calendarOpening(state) {
+      state.isCalendarOpen = !state.isCalendarOpen;
+      state.isCalendarFocus = true;
+    },
+    calendarBluring(state) {
+      state.isCalendarOpen = false;
+      state.isCalendarFocus = false;
+    },
+    paymentTermsModalOpening(state) {
+      state.isPaymentTermsOpen = !state.isPaymentTermsOpen;
+    },
+    paymentTermsModalBluring(state) {
+      state.isPaymentTermsFocus = false;
+    },
+    paymentTermsModalFocus(state) {
+      state.isPaymentTermsFocus = true;
+    },
+    paymentTermsOption(state, action) {
+      state.paymentTerms = action.payload;
+    },
   },
 });
 
-export const { openingForm } = invoiceFormSlice.actions;
+export const {
+  openingForm,
+  calendarBluring,
+  calendarOpening,
+  paymentTermsModalBluring,
+  paymentTermsModalFocus,
+  paymentTermsModalOpening,
+  paymentTermsOption,
+} = invoiceFormSlice.actions;
 export default invoiceFormSlice.reducer;
+
+export const getInvoiceFormReducer = (store) => store.invoiceForm;

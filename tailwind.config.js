@@ -4,6 +4,9 @@ export default {
 
   theme: {
     extend: {
+      gridColumn: {
+        "span-1-5": "span 1.5 / span 1.5",
+      },
       backgroundColor: {
         "linear-grad":
           "linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.10) 100%)",

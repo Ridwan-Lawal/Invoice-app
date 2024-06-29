@@ -16,6 +16,10 @@
   @apply border border-purple-300 border-opacity-[0.4] shadow-sm w-full py-3 px-4 focus:outline-none text-cinder font-semibold rounded-md text-[15px] focus:border-cornflower-blue;
 }
 
+.invoice-form-input2 {
+  @apply shadow-sm w-full px-4 focus:outline-none text-cinder font-semibold rounded-md text-[15px];
+}
+
 /* Style for all scrollable elements */
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px; /* width of the entire scrollbar */
@@ -34,4 +38,38 @@
 
   border-radius: 20px; /* roundness of the scroll thumb */
   /* creates padding around scroll thumb */
+}
+
+/* calendar styles */
+.react-calendar {
+  border: none;
+  border-radius: 10px;
+  color: #232c44;
+  font-family: League Spartan, sans-serif;
+  padding: 10px;
+}
+
+.react-calendar__tile {
+  background: white;
+  border-radius: 100%;
+  transition: background 0.3s, color 0.3s;
+  font-weight: 700;
+  padding: 7px;
+  cursor: pointer;
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background: #e6f7ff;
+  color: #0050b3;
+}
+
+.react-calendar__tile--now {
+  background: #bae7ff;
+  color: white;
+}
+
+.react-calendar__tile--active {
+  background: #6865e6;
+  color: white;
 }

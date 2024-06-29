@@ -24,7 +24,7 @@ function Dashboard() {
   if (isError) toast.error("Couldn't fetch data from api");
 
   return (
-    <div className="h-auto px-6 mt-10 md:mt-[73px] mx-auto border border-green-700 -z-10 ">
+    <div className="h-auto px-6 mt-10 md:mt-[73px] mx-auto border border-green-700 -z-10 max-w-[750px]">
       <DashBoardHeader />
       <section className="mt-16 md:mt-12 space-y-5 max-w-[750px] mx-auto">
         {invoices?.map((invoice) => (
