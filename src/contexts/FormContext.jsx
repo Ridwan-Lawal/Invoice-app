@@ -7,12 +7,19 @@ const FormContext = createContext();
 
 function FormContextProvider({ children }) {
   // register, handlesubmit, formstate, reset
-  const { register, handleSubmit, unregister, watch, control, formState } =
-    useForm({
-      defaultValues: {
-        items: [{ name: "", quantity: "", price: "" }],
-      },
-    });
+  const {
+    register,
+    handleSubmit,
+    unregister,
+    watch,
+    control,
+    formState,
+    reset,
+  } = useForm({
+    defaultValues: {
+      items: [{ name: "", quantity: "", price: "" }],
+    },
+  });
 
   console.log(handleSubmit);
 
@@ -63,6 +70,7 @@ function FormContextProvider({ children }) {
         append,
         remove,
         itemsWatch,
+        reset,
       }}
     >
       {children}

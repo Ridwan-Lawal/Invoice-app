@@ -11,32 +11,64 @@ import { useInvoiceContext } from "../../contexts/FormContext";
 import { useState } from "react";
 import { addDays } from "date-fns";
 import { formatInvoiceDate, generateRandomId } from "../../utils/helper";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiAddInvoice } from "../../services/apiInvoice";
+import toast from "react-hot-toast";
+import Loader from "../../ui/Loader";
+
+// fix the discard, save draft, save-btn
+// fix the refetching of data when the form is submitted
+// and also destructure the 'isLoading' state from useMutation hook and use it
+// carry out the client's email validation using regex pattern
 
 function InvoiceForm() {
   const isFormOpen = useSelector((store) => store.invoiceForm.isFormOpen);
   const dispatch = useDispatch();
-  const { handleSubmit, append } = useInvoiceContext();
+  const { handleSubmit, append, reset } = useInvoiceContext();
   const { paymentTerms } = useSelector(getInvoiceFormReducer);
+  const queryClient = useQueryClient();
 
   // from react-calendar
   const [value, onChange] = useState(new Date());
 
-  function onSubmit(data) {
+  // To add the form data to the form
+  const { isLoading: isAddingInvoice, mutate } = useMutation({
+    mutationFn: apiAddInvoice,
+    onSuccess: () => {
+      toast.success("Invoice successfully added");
+      queryClient.invalidateQueries("invoices");
+      reset();
+      dispatch(openingForm());
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
+  function onSubmit(data, event) {
+    /* to get the name property of the button that submitted the form in order to know if it was the 'draft' or 'save' button */
+
+    const submitter = event.nativeEvent.submitter;
+
     const futureDate = addDays(value, paymentTerms);
+    const status = submitter.name === "draft" ? "draft" : "pending";
+    const paymentDue =
+      submitter.name === "draft" ? "" : formatInvoiceDate(futureDate);
+
     const invoiceFormData = {
       id: generateRandomId(),
       ...data,
-      paymentDue: formatInvoiceDate(futureDate),
+      paymentDue,
       paymentTerms,
-      status: "pending",
+      status,
       total: data.items.reduce(
         (acc, curItem) => acc + +curItem.price * +curItem.quantity,
         0
       ),
     };
-    console.log(data, invoiceFormData);
+    mutate(invoiceFormData);
+    console.log(invoiceFormData);
   }
 
+  if (isAddingInvoice) return <Loader />;
   return (
     <div
       className={`bg-black ${
@@ -89,6 +121,7 @@ function InvoiceForm() {
 
             <div className="flex item-center gap-3 py-4">
               <Button
+                name="draft"
                 bgColor="bg-cinder bg-opacity-90 hover:bg-opacity-100"
                 textColor="text-gray-400 text-opacity-90"
                 customStyles="py-3.5 px-5"
@@ -96,7 +129,7 @@ function InvoiceForm() {
                 Save as Draft
               </Button>
 
-              <Button>Save & Send</Button>
+              <Button name="save">Save & Send</Button>
             </div>
           </div>
         </form>
@@ -104,7 +137,9 @@ function InvoiceForm() {
         {/* discard draft and send button */}
         <div className="flex items-center justify-between">
           <Button
-            onClick={() => dispatch(openingForm())}
+            onClick={() => {
+              dispatch(openingForm());
+            }}
             textColor="text-cornflower-blue text-opacity-90"
             bgColor="bg-cornflower-blue bg-opacity-5 hover:bg-opacity-[0.15]"
             fontSize="text-[15px]"
@@ -115,6 +150,7 @@ function InvoiceForm() {
 
           <div className="flex item-center gap-3 py-4">
             <Button
+              name="draft"
               bgColor="bg-cinder bg-opacity-90 hover:bg-opacity-100"
               textColor="text-gray-400 text-opacity-90"
               customStyles="py-3.5 px-5"
@@ -122,7 +158,7 @@ function InvoiceForm() {
               Save as Draft
             </Button>
 
-            <Button>Save & Send</Button>
+            <Button name="save">Save & Send</Button>
           </div>
         </div>
       </div>

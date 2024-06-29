@@ -2,10 +2,12 @@ import { supabase } from "./supabase";
 
 import invoiceDatas from "../data/data.json";
 
-export async function apiInvoice() {
+// api to add invoice to supabase
+export async function apiAddInvoice(newInvoice) {
+  console.log(newInvoice);
   const { data, error } = await supabase
     .from("Invoice")
-    .insert([{ some_column: "someValue", other_column: "otherValue" }])
+    .insert(newInvoice)
     .select();
 
   if (error) throw new Error("Couldn't add Invoice");
@@ -13,6 +15,7 @@ export async function apiInvoice() {
   return data;
 }
 
+// api add many rows
 export async function apiInvoiceManyRows() {
   const { data, error } = await supabase
     .from("Invoice")

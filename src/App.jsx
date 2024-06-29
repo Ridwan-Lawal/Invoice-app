@@ -45,7 +45,7 @@ function App() {
               maxWidth: "500px",
               padding: "13px 20px",
               backgroundColor: "#ffffff",
-              color: "darkgray",
+              color: "dark",
             },
           }}
         />
