@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 function FormInput({ children, label, colSpan, display, error }) {
+  console.log(error);
   return (
     <div className={`space-y-2 ${colSpan} `}>
       <div className={`flex ${display} items-center justify-between`}>
@@ -10,9 +11,7 @@ function FormInput({ children, label, colSpan, display, error }) {
           {label}
         </label>
 
-        {error && (
-          <span className="text-xs text-red-500">can&apos;t be empty</span>
-        )}
+        {error && <span className="text-xs text-red-500">{error}</span>}
       </div>
       {children}
     </div>

@@ -19,7 +19,6 @@ function DashBoardHeader() {
   );
 
   const dispatch = useDispatch();
-  console.log(filterOptionsIsOpen, sortOptionsIsOpen);
 
   return (
     <div className="flex border justify-between mt-7 font-spartan max-w-[710px] xl:max-w-[750px] mx-auto">
@@ -33,11 +32,7 @@ function DashBoardHeader() {
 
       <div className="flex items-center gap-5 border border-black md:gap-8">
         {/* filter */}
-        <InvoiceArrange
-          onBlur={() =>
-            filterOptionsIsOpen && dispatch(filterOptionsButtonClick())
-          }
-        >
+        <InvoiceArrange>
           <InvoiceArrange.Button
             onClick={() => dispatch(filterOptionsButtonClick())}
           >
@@ -50,17 +45,15 @@ function DashBoardHeader() {
           </InvoiceArrange.Button>
           {filterOptionsIsOpen && (
             <InvoiceArrange.Options>
-              <ArrangeOption option="Draft" />
-              <ArrangeOption option="pending" />
-              <ArrangeOption option="paid" />
+              <ArrangeOption type="filterBy" option="Draft" />
+              <ArrangeOption type="filterBy" option="pending" />
+              <ArrangeOption type="filterBy" option="paid" />
             </InvoiceArrange.Options>
           )}
         </InvoiceArrange>
 
         {/* sorting */}
-        <InvoiceArrange
-          onBlur={() => sortOptionsIsOpen && dispatch(sortOptionsButtonClick())}
-        >
+        <InvoiceArrange>
           <InvoiceArrange.Button
             onClick={() => dispatch(sortOptionsButtonClick())}
           >
@@ -74,10 +67,10 @@ function DashBoardHeader() {
           </InvoiceArrange.Button>
           {sortOptionsIsOpen && (
             <InvoiceArrange.Options>
-              <ArrangeOption option="Name" />
-              <ArrangeOption option="Status" />
-              <ArrangeOption option="Due Date" />
-              <ArrangeOption option="Total" />
+              <ArrangeOption type="sortBy" option="Name" />
+              <ArrangeOption type="sortBy" option="Status" />
+              <ArrangeOption type="sortBy" option="Due Date" />
+              <ArrangeOption type="sortBy" option="Total" />
             </InvoiceArrange.Options>
           )}
         </InvoiceArrange>

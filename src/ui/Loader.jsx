@@ -2,7 +2,7 @@ import { Bars } from "react-loader-spinner";
 
 function Loader() {
   return (
-    <div className="w-screen h-screen flex items-center justify-center backdrop-filter backdrop-blur-sm bg-opacity-30 fixed top-0">
+    <div className="w-screen h-screen flex items-center justify-center backdrop-filter backdrop-blur-sm bg-opacity-30 fixed top-0 z-50">
       <Bars
         height="50"
         width="50"

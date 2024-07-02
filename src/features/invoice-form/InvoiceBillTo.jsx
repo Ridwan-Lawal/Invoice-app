@@ -7,6 +7,8 @@ function InvoiceBillTo() {
     formState: { errors },
   } = useInvoiceContext();
 
+  console.log(errors);
+
   return (
     <section className="mt-8">
       <h4 className="form-section-header">Bill To</h4>
@@ -40,6 +42,10 @@ function InvoiceBillTo() {
             className="invoice-form-input "
             {...register("clientEmail", {
               required: "can't be empty!",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Enter a valid email address!",
+              },
             })}
           />
         </FormInput>

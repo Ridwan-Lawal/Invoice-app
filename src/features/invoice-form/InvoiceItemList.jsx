@@ -45,7 +45,7 @@ function InvoiceItemList() {
             label="Item Name"
             colSpan="sm:col-span-3 col-span-5"
             display="sm:hidden"
-            error={errors?.items?.[index]?.name}
+            error={errors?.items?.[index]?.name?.message}
           >
             <input
               type="text"
@@ -62,7 +62,7 @@ function InvoiceItemList() {
           <FormInput
             label="Qty."
             display="sm:hidden"
-            error={errors?.items?.[index]?.quantity}
+            error={errors?.items?.[index]?.quantity?.message}
           >
             <input
               type="text"
@@ -72,6 +72,10 @@ function InvoiceItemList() {
               className="invoice-form-input"
               {...register(`items[${index}].quantity`, {
                 required: "can't be empty",
+                pattern: {
+                  value: /^[0-9]+$/,
+                  message: "Numbers only",
+                },
               })}
             />
           </FormInput>
@@ -81,7 +85,7 @@ function InvoiceItemList() {
             label="Price"
             colSpan="col-span-2"
             display="sm:hidden"
-            error={errors?.items?.[index]?.price}
+            error={errors?.items?.[index]?.price?.message}
           >
             <input
               type="text"
@@ -90,6 +94,10 @@ function InvoiceItemList() {
               className="invoice-form-input col-span-2 "
               {...register(`items[${index}].price`, {
                 required: "can't be empty",
+                pattern: {
+                  value: /^[0-9]+$/,
+                  message: "Numbers only",
+                },
               })}
             />
           </FormInput>

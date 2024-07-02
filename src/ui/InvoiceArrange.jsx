@@ -19,7 +19,7 @@ function Button({ children, onClick }) {
 function Options({ children }) {
   return (
     <div
-      className={` absolute top-8 bg-white rounded-md py-4 space-y-3  px-3 w-[120px] shadow-xl`}
+      className={` absolute top-8 bg-white rounded-md py-4 space-y-3  px-3 w-[120px] shadow-xl z-10`}
     >
       {children}
     </div>
