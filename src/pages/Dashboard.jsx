@@ -1,28 +1,21 @@
-import { useIsMutating, useQuery } from "@tanstack/react-query";
+import { useIsMutating } from "@tanstack/react-query";
 import DashBoardHeader from "../features/dashboard/DashBoardHeader";
 import InvoiceCard from "../features/dashboard/InvoiceCard";
-import { apiReadInvoice } from "../services/apiInvoice";
+
 import Loader from "../ui/Loader";
 import toast from "react-hot-toast";
 
 import WaitingLoader from "../ui/WaitingLoader";
 
 import { useReadFilterSortData } from "../hooks/useReadFilterSortData";
+import { useReadInvoices } from "../hooks/useReadInvoices";
 
 function Dashboard() {
   // for reading the mutate state of the mutation of adding the filter and sort value to supabase
   const isMutating = useIsMutating("addFilterSort");
 
   // for reading the invoices from the api
-  const {
-    isLoading,
-    isError,
-    data: invoices,
-  } = useQuery({
-    queryKey: ["invoices"],
-    queryFn: apiReadInvoice,
-  });
-
+  const { invoices, isLoading, isError } = useReadInvoices();
   // for reading the filter and the sort value
   const filterSortData = useReadFilterSortData();
 

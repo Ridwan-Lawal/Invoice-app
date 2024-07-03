@@ -20,6 +20,10 @@
   @apply shadow-sm w-full px-4 focus:outline-none text-cinder font-semibold rounded-md text-[15px];
 }
 
+.primary-text {
+  @apply text-cornflower-blue text-sm text-opacity-80;
+}
+
 /* Style for all scrollable elements */
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px; /* width of the entire scrollbar */

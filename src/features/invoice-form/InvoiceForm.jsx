@@ -111,6 +111,7 @@ function InvoiceForm() {
         <div className="flex items-center justify-between">
           <Button
             onClick={() => dispatch(openingForm())}
+            type="button"
             textColor="text-cornflower-blue text-opacity-90"
             bgColor="bg-cornflower-blue bg-opacity-5 hover:bg-opacity-[0.15]"
             fontSize="text-[15px]"

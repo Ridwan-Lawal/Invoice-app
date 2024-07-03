@@ -12,21 +12,25 @@ import {
 
 import DasboardOptionsButtonContent from "../../ui/DasboardOptionsButtonContent";
 import { openingForm } from "../invoice-form/invoiceFormSlice";
+import { useReadInvoices } from "../../hooks/useReadInvoices";
 
 function DashBoardHeader() {
   const { filterOptionsIsOpen, sortOptionsIsOpen } = useSelector(
     (store) => store.dashboard
   );
-
   const dispatch = useDispatch();
+  // to get the length of invoices
+  const { invoices } = useReadInvoices();
 
   return (
     <div className="flex border justify-between mt-7 font-spartan max-w-[710px] xl:max-w-[750px] mx-auto">
       <section>
         <h1 className=" font-bold text-cinder   text-[33px] ">Invoices</h1>
         <p className="text-[13.5px] text-gray-400 font-medium   -mt-2 md:mt-0 ">
-          <span className="hidden md:block">There are total of X invoices</span>
-          <span className="md:hidden">X invoices</span>
+          <span className="hidden md:block">
+            There are total of {invoices.length} invoices
+          </span>
+          <span className="md:hidden">{invoices.length} invoices</span>
         </p>
       </section>
 
