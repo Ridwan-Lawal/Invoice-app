@@ -23,7 +23,7 @@ function DashBoardHeader() {
   return (
     <div className="flex border justify-between mt-7 font-spartan max-w-[710px] xl:max-w-[750px] mx-auto">
       <section>
-        <h1 className=" font-bold text-cinder   text-4xl ">Invoices</h1>
+        <h1 className=" font-bold text-cinder   text-[33px] ">Invoices</h1>
         <p className="text-[13.5px] text-gray-400 font-medium   -mt-2 md:mt-0 ">
           <span className="hidden md:block">There are total of X invoices</span>
           <span className="md:hidden">X invoices</span>
@@ -45,6 +45,7 @@ function DashBoardHeader() {
           </InvoiceArrange.Button>
           {filterOptionsIsOpen && (
             <InvoiceArrange.Options>
+              <ArrangeOption type="filterBy" option="All" />
               <ArrangeOption type="filterBy" option="Draft" />
               <ArrangeOption type="filterBy" option="pending" />
               <ArrangeOption type="filterBy" option="paid" />
@@ -83,7 +84,7 @@ function DashBoardHeader() {
             <p className="bg-white p-2 rounded-full">
               <BiPlus className="text-lg text-cornflower-blue " />
             </p>
-            <p className="pr-4">
+            <p className="pr-3">
               New <span className="hidden md:inline">Invoice</span>
             </p>
           </Button>

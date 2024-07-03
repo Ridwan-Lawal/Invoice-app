@@ -14,7 +14,5 @@ export function useAddFilterSort() {
     onError: (err) => toast.error(err.message),
   });
 
-  console.log(isLoading);
-
   return { mutate, isLoading };
 }

@@ -3,17 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   filterOptionsIsOpen: false,
   sortOptionsIsOpen: false,
-  filterOptions: {
-    draft: false,
-    pending: false,
-    paid: false,
-  },
-  sortOptions: {
-    name: false,
-    status: false,
-    "due date": false,
-    total: false,
-  },
+  filterOption: "",
+  sortOption: "",
 };
 
 const dashboardSlice = createSlice({
@@ -21,12 +12,11 @@ const dashboardSlice = createSlice({
   initialState,
   reducers: {
     optionsFilterSelect(state, action) {
-      state.filterOptions[action.payload.toLowerCase()] =
-        !state[[action.payload.toLowerCase()]];
+      state.filterOption = action.payload;
     },
     optionsSortSelect(state, action) {
-      state.sortOptions[action.payload.toLowerCase()] =
-        !state[[action.payload.toLowerCase()]];
+      console.log(action);
+      state.sortOption = action.payload;
     },
     filterOptionsButtonClick(state) {
       state.filterOptionsIsOpen = !state.filterOptionsIsOpen;
@@ -46,3 +36,5 @@ export const {
   sortOptionsButtonClick,
 } = dashboardSlice.actions;
 export default dashboardSlice.reducer;
+
+export const getDashboardReducer = (store) => store.dashboard;
