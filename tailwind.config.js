@@ -41,6 +41,10 @@ export default {
         "ocean-green": "#36a978",
         "green-pea": "#266643",
       },
+
+      boxShadow: {
+        top: "20px 20px 20px 20px lightgray",
+      },
     },
   },
   plugins: [require("tailwind-scrollbar")],
