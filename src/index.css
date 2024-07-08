@@ -21,7 +21,11 @@
 }
 
 .primary-text {
-  @apply text-cornflower-blue text-sm text-opacity-80;
+  @apply text-cornflower-blue text-sm text-opacity-80 font-semibold;
+}
+
+.secondary-text {
+  @apply text-cinder font-bold text-[15px];
 }
 
 /* Style for all scrollable elements */

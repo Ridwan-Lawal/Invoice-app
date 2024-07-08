@@ -43,7 +43,7 @@ export default {
       },
 
       boxShadow: {
-        top: "20px 20px 20px 20px lightgray",
+        top: "20px 20px 20px 20px #a6a4a4",
       },
     },
   },

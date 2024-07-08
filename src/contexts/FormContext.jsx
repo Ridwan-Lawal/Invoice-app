@@ -15,9 +15,10 @@ function FormContextProvider({ children }) {
     control,
     formState,
     reset,
+    getValues,
   } = useForm({
     defaultValues: {
-      items: [{ name: "", quantity: "", price: "" }],
+      items: [{ name: "", quantity: "", price: "", total: "" }],
     },
   });
 
@@ -71,6 +72,7 @@ function FormContextProvider({ children }) {
         remove,
         itemsWatch,
         reset,
+        getValues,
       }}
     >
       {children}

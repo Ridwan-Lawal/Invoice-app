@@ -16,6 +16,8 @@ function Dashboard() {
 
   // for reading the invoices from the api
   const { invoices, isLoading, isError } = useReadInvoices();
+
+  console.log(invoices);
   // for reading the filter and the sort value
   const filterSortData = useReadFilterSortData();
 
@@ -62,9 +64,11 @@ function Dashboard() {
         {isMutating ? (
           <WaitingLoader />
         ) : (
-          invoicesDataAfterSorting?.map((invoice) => (
-            <InvoiceCard key={invoice.id} invoice={invoice} />
-          ))
+          invoicesDataAfterSorting
+            .reverse()
+            ?.map((invoice) => (
+              <InvoiceCard key={invoice.id} invoice={invoice} />
+            ))
         )}
       </section>
     </div>

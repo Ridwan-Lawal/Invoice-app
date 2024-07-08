@@ -19,7 +19,7 @@ import Loader from "../../ui/Loader";
 function InvoiceForm() {
   const isFormOpen = useSelector((store) => store.invoiceForm.isFormOpen);
   const dispatch = useDispatch();
-  const { handleSubmit, append, reset } = useInvoiceContext();
+  const { handleSubmit, append, reset, getValues } = useInvoiceContext();
   const { paymentTerms } = useSelector(getInvoiceFormReducer);
   const queryClient = useQueryClient();
 
@@ -38,32 +38,47 @@ function InvoiceForm() {
     onError: (err) => toast.error(err.message),
   });
 
-  function onSubmit(data, event) {
+  function onSubmit(data) {
     const futureDate = addDays(value, paymentTerms);
-    /* to get the name property of the button that submitted the form in order to know if it was the 'draft' or 'save' button */
-    const submitter = event.nativeEvent.submitter;
-
-    let status;
-    let paymentDue;
-
-    if (submitter.name === "draft") {
-      status = "draft";
-      paymentDue = "";
-    } else {
-      (status = "pending"), (paymentDue = formatInvoiceDate(futureDate));
-    }
-
     const invoiceFormData = {
       id: generateRandomId(),
       ...data,
-      paymentDue,
+      paymentDue: formatInvoiceDate(futureDate),
       paymentTerms,
-      status,
+      status: "pending",
+      items: data.items.map((item) => ({
+        ...item,
+        total: +item?.quantity * +item?.price,
+      })),
       total: data.items.reduce(
         (acc, curItem) => acc + +curItem.price * +curItem.quantity,
         0
       ),
     };
+    mutate(invoiceFormData);
+    console.log(invoiceFormData);
+  }
+
+  // for saving draft without form validation
+  function onDraft() {
+    const data = getValues();
+
+    const invoiceFormData = {
+      id: generateRandomId(),
+      ...data,
+      paymentDue: null,
+      paymentTerms,
+      status: "draft",
+      items: data.items.map((item) => ({
+        ...item,
+        total: +item?.quantity * +item?.price,
+      })),
+      total: data.items.reduce(
+        (acc, curItem) => acc + +curItem.price * +curItem.quantity,
+        0
+      ),
+    };
+
     mutate(invoiceFormData);
     console.log(invoiceFormData);
   }
@@ -122,7 +137,8 @@ function InvoiceForm() {
 
           <div className="flex item-center gap-3 py-4">
             <Button
-              name="draft"
+              name="button"
+              onClick={onDraft}
               bgColor="bg-cinder bg-opacity-90 hover:bg-opacity-100"
               textColor="text-gray-400 text-opacity-90"
               customStyles="py-3.5 px-5"

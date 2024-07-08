@@ -2,12 +2,18 @@
 import { IoIosArrowForward } from "react-icons/io";
 import Status from "../../ui/Status";
 import { formatCurrency, formatDate } from "../../utils/helper";
+import { useNavigate } from "react-router-dom";
 
 function InvoiceCard({ invoice }) {
   //   start form handling and adding of new invoices
 
+  const navigate = useNavigate();
+
   return (
-    <div className="bg-white shadow-md shadow-gray-100  border border-transparent rounded-lg hover:border-mirage  hover:scale-[1.01] cursor-pointer  transition-all duration-200 px-5 pb-4 pt-6  ">
+    <div
+      onClick={() => navigate(`invoice/${invoice?.id}`)}
+      className="bg-white shadow-md shadow-gray-100  border border-transparent rounded-lg hover:border-mirage  hover:scale-[1.01] cursor-pointer  transition-all duration-200 px-5 pb-4 pt-6  "
+    >
       {/* id date, name  price, status*/}
       <div className=" text-black font-spartan flex flex-col gap-1    md:flex-row md:justify-between md:max-w-[700px] mx-auto">
         {/* id and date and name */}
@@ -19,7 +25,12 @@ function InvoiceCard({ invoice }) {
               {invoice?.id}
             </p>
             <p className="text-gray-400 text-[13px] font-medium">
-              Due {formatDate(invoice?.createdAt)}
+              Due{" "}
+              {invoice?.paymentDue ? (
+                formatDate(invoice?.paymentDue)
+              ) : (
+                <i>hasn&apos;t been set yet</i>
+              )}
             </p>
           </section>
           {/* name */}

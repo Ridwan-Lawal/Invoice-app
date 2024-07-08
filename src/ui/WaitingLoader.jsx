@@ -1,8 +1,11 @@
-import { ColorRing } from "react-loader-spinner";
+/* eslint-disable react/prop-types */
+import { ColorRing, Puff } from "react-loader-spinner";
 
-function WaitingLoader() {
+function WaitingLoader({ marginTop }) {
   return (
-    <div className="flex items-center justify-center h-[30vh] w-[100vw]">
+    <div
+      className={`flex items-center justify-center h-[30vh] w-[100%] border ${marginTop}`}
+    >
       <ColorRing
         visible={true}
         height="50"
@@ -20,6 +23,20 @@ function WaitingLoader() {
         ]}
       />
     </div>
+  );
+}
+
+export function StatusLoader() {
+  return (
+    <Puff
+      visible={true}
+      height="20"
+      width="20"
+      color="#010816"
+      ariaLabel="puff-loading"
+      wrapperStyle={{}}
+      wrapperClass=""
+    />
   );
 }
 
