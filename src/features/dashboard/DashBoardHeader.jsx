@@ -7,26 +7,34 @@ import { BiPlus } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import {
   filterOptionsButtonClick,
+  getIsDarkMode,
   sortOptionsButtonClick,
 } from "./dashboardSlice";
 
 import DasboardOptionsButtonContent from "../../ui/DasboardOptionsButtonContent";
-import { openingForm } from "../invoice-form/invoiceFormSlice";
+import { openingForm, updateFormType } from "../invoice-form/invoiceFormSlice";
 import { useReadInvoices } from "../../hooks/useReadInvoices";
 
 function DashBoardHeader() {
   const { filterOptionsIsOpen, sortOptionsIsOpen } = useSelector(
     (store) => store.dashboard
   );
+  const isDarkMode = useSelector(getIsDarkMode);
   const dispatch = useDispatch();
   // to get the length of invoices
   const { invoices } = useReadInvoices();
 
   return (
-    <div className="flex border justify-between mt-7 font-spartan max-w-[710px] xl:max-w-[750px] mx-auto">
+    <div className="flex border justify-between mt-7 font-spartan max-w-[710px] xl:max-w-[750px] mx-auto  ">
       <section>
-        <h1 className=" font-bold text-cinder   text-[33px] ">Invoices</h1>
-        <p className="text-[13.5px] text-gray-400 font-medium   -mt-2 md:mt-0 ">
+        <h1
+          className={`font-bold text-[33px] ${
+            isDarkMode ? "text-white" : "text-cinder"
+          } `}
+        >
+          Invoices
+        </h1>
+        <p className="text-[13.5px] text-gray-400 font-semibold   -mt-2 md:mt-0 ">
           <span className="hidden md:block">
             There are total of {invoices.length} invoices
           </span>
@@ -41,7 +49,11 @@ function DashBoardHeader() {
             onClick={() => dispatch(filterOptionsButtonClick())}
           >
             {/* if mobile view, display the icon, else display the 'filter by status v' */}
-            <HiFunnel className="text-[21px] text-mirage md:hidden -z-50" />
+            <HiFunnel
+              className={`text-[21px] ${
+                isDarkMode ? "text-white" : "text-mirage"
+              }  md:hidden -z-50`}
+            />
             <DasboardOptionsButtonContent
               optionType="filter"
               optionIsOpen={filterOptionsIsOpen}
@@ -63,7 +75,11 @@ function DashBoardHeader() {
             onClick={() => dispatch(sortOptionsButtonClick())}
           >
             {/* if mobile view, display the icon, else display the 'sort by  v' */}
-            <HiSortDescending className="text-[21px] text-mirage md:hidden -z-50" />
+            <HiSortDescending
+              className={`text-[21px] ${
+                isDarkMode ? "text-white" : "text-mirage"
+              }   md:hidden -z-50`}
+            />
 
             <DasboardOptionsButtonContent
               optionType="sort"
@@ -82,7 +98,10 @@ function DashBoardHeader() {
 
         <section>
           <Button
-            onClick={() => dispatch(openingForm())}
+            onClick={() => {
+              dispatch(openingForm());
+              dispatch(updateFormType("Create"));
+            }}
             customStyles="py-1.5 gap-3 px-2"
           >
             <p className="bg-white p-2 rounded-full">

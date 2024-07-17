@@ -72,3 +72,17 @@ export async function apiMarkAsPaid(invoiceId) {
 
   return data;
 }
+
+// api to edit and update invoice
+
+export async function apiUpdateInvoice(invoice) {
+  console.log(invoice);
+  const { data, error } = await supabase
+    .from("Invoice")
+    .update(invoice)
+    .eq("id", invoice?.id)
+    .select();
+
+  if (error) throw new error(error.message);
+  return data;
+}

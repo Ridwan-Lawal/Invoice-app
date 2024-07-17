@@ -16,6 +16,8 @@ function FormContextProvider({ children }) {
     formState,
     reset,
     getValues,
+    setValue,
+    clearErrors,
   } = useForm({
     defaultValues: {
       items: [{ name: "", quantity: "", price: "", total: "" }],
@@ -73,6 +75,8 @@ function FormContextProvider({ children }) {
         itemsWatch,
         reset,
         getValues,
+        setValue,
+        clearErrors,
       }}
     >
       {children}
@@ -82,6 +86,7 @@ function FormContextProvider({ children }) {
 
 export function useInvoiceContext() {
   const context = useContext(FormContext);
+
   return context;
 }
 

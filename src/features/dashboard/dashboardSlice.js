@@ -5,6 +5,7 @@ const initialState = {
   sortOptionsIsOpen: false,
   filterOption: "",
   sortOption: "",
+  isDarkMode: true,
 };
 
 const dashboardSlice = createSlice({
@@ -26,6 +27,9 @@ const dashboardSlice = createSlice({
       state.sortOptionsIsOpen = !state.sortOptionsIsOpen;
       state.filterOptionsIsOpen = false;
     },
+    toggleTheme(state) {
+      state.isDarkMode = !state.isDarkMode;
+    },
   },
 });
 
@@ -34,7 +38,10 @@ export const {
   optionsSortSelect,
   filterOptionsButtonClick,
   sortOptionsButtonClick,
+  toggleTheme,
 } = dashboardSlice.actions;
 export default dashboardSlice.reducer;
 
 export const getDashboardReducer = (store) => store.dashboard;
+
+export const getIsDarkMode = (store) => store.dashboard.isDarkMode;

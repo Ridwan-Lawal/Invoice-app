@@ -4,8 +4,11 @@ import { FaCheck } from "react-icons/fa";
 import { useAddFilterSort } from "../hooks/useAddFilterSort";
 
 import { useReadFilterSortData } from "../hooks/useReadFilterSortData";
+import { useSelector } from "react-redux";
+import { getIsDarkMode } from "../features/dashboard/dashboardSlice";
 
 function ArrangeOption({ option, type }) {
+  const isDarkMode = useSelector(getIsDarkMode);
   // Add the blue tick to the filter and sort
   // try to reverse the invoices data so that if you add any data it will to the top rather that on the button
   // color for checkbox click bg-cornflower-blue
@@ -38,8 +41,12 @@ function ArrangeOption({ option, type }) {
       className="flex items-center cursor-pointer group gap-3 "
     >
       <button
-        className={`border p-[4px] rounded-[4px]  group-hover:border-cornflower-blue ${
-          isOptionSelect ? "bg-cornflower-blue" : "bg-link-water"
+        className={` p-[4px] rounded-[4px]  group-hover:border-cornflower-blue ${
+          isOptionSelect
+            ? "bg-cornflower-blue"
+            : isDarkMode
+            ? "bg-mirage"
+            : "bg-link-water"
         } `}
       >
         <FaCheck
@@ -49,7 +56,11 @@ function ArrangeOption({ option, type }) {
         />
       </button>
 
-      <p className="text-ebony-clay text-[12px] font-extrabold capitalize group-hover:text-cornflower-blue group-hover:scale-105 transition-transform">
+      <p
+        className={`${
+          isDarkMode ? "text-white" : "text-ebony-clay"
+        }  text-[12px] font-extrabold capitalize group-hover:text-cornflower-blue group-hover:scale-105 transition-transform`}
+      >
         {option}
       </p>
     </div>

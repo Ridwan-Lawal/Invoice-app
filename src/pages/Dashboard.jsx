@@ -10,6 +10,9 @@ import WaitingLoader from "../ui/WaitingLoader";
 import { useReadFilterSortData } from "../hooks/useReadFilterSortData";
 import { useReadInvoices } from "../hooks/useReadInvoices";
 
+// remove the borders
+// and store the hooks into
+
 function Dashboard() {
   // for reading the mutate state of the mutation of adding the filter and sort value to supabase
   const isMutating = useIsMutating("addFilterSort");

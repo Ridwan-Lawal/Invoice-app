@@ -18,9 +18,11 @@ import {
   paymentTermsOption,
 } from "./invoiceFormSlice";
 import FormInput from "./FormInput";
+import { getIsDarkMode } from "../dashboard/dashboardSlice";
 
 function InvoiceDatePaymentTerms({ value, onChange }) {
-  // change the name you used to register invoicedate and payment terms  to createdAt and paymentDue
+  const isDarkMode = useSelector(getIsDarkMode);
+  console.log(isDarkMode);
   const {
     register,
     formState: { errors },
@@ -64,7 +66,7 @@ function InvoiceDatePaymentTerms({ value, onChange }) {
                 name="invoiceCreate"
                 id="invoice-date"
                 value={formatInvoiceDate(value)}
-                className="cursor-pointer focus:outline-none "
+                className="cursor-pointer focus:outline-none bg-inherit text-inherit"
                 {...register("createdAt", {
                   required: "Can't be empty",
                 })}
@@ -78,7 +80,7 @@ function InvoiceDatePaymentTerms({ value, onChange }) {
                 <Calendar
                   onChange={onChange}
                   value={value}
-                  className="px-2 py-3 font-medium bg-white rounded-md shadow-2xl w-full "
+                  className={`px-2 py-3 font-medium  rounded-md shadow-2xl w-full `}
                 />
               </div>
             </div>
@@ -86,14 +88,15 @@ function InvoiceDatePaymentTerms({ value, onChange }) {
         </div>
 
         {/* payment terms */}
-        <FormInput label="Payment Terms">
-          <div className="flex flex-col gap-4 ">
+
+        <div className="flex flex-col border gap-4 ">
+          <FormInput label="Payment Terms">
             <div
               style={
                 isPaymentTermsFocus ? style : { border: "1px solid lightgray" }
               }
               className=" rounded-md flex  items-center py-3 cursor-pointer"
-              onClick={() => dispatch(paymentTermsModalOpening)}
+              onClick={() => dispatch(paymentTermsModalOpening())}
             >
               <input
                 type="text"
@@ -102,36 +105,46 @@ function InvoiceDatePaymentTerms({ value, onChange }) {
                 name="payment-terms"
                 value={`Next ${paymentTerms} ${daysSpelling}`}
                 id="payment-terms"
-                className="invoice-form-input2 w-[80%] border-r border-gray-300 cursor-pointer"
+                className="invoice-form-input2 w-[80%] bg-inherit  cursor-pointer "
                 {...register("paymentDue", {
                   required: "Can't be empty",
                 })}
               />
 
-              <IoIosArrowDown className="text-cornflower-blue text-lg w-[20%]" />
+              <IoIosArrowDown
+                className={`text-cornflower-blue text-lg w-[20%] ${
+                  isPaymentTermsOpen ? "rotate-180" : "rotate-0"
+                } transition-transform duration-400 `}
+              />
             </div>
+          </FormInput>
 
-            {isPaymentTermsOpen && (
-              <div className="relative ">
-                <ul className="rounded-md overflow-hidden shadow-2xl absolute w-full bg-white">
-                  {[30, 14, 7, 1].map((option, id) => (
-                    <li
-                      className={`${
-                        paymentTerms === option
-                          ? "text-cornflower-blue"
-                          : "text-cinder"
-                      } py-4 border-b px-4  text-[14px] font-bold cursor-pointer`}
-                      onClick={() => dispatch(paymentTermsOption(option))}
-                      key={id}
-                    >
-                      Next {option} {option > 1 ? "Days" : "Day"}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        </FormInput>
+          {isPaymentTermsOpen && (
+            <div className="relative ">
+              <ul
+                className={`border rounded-md overflow-hidden shadow-2xl absolute w-full ${
+                  isDarkMode ? "bg-[#1c243c] " : "bg-white"
+                } `}
+              >
+                {[30, 14, 7, 1].map((option, id) => (
+                  <li
+                    className={`${
+                      paymentTerms === option
+                        ? "text-cornflower-blue"
+                        : isDarkMode
+                        ? "text-white border-gray-900"
+                        : "text-cinder"
+                    } py-4 border-b px-4  text-[14px] font-bold cursor-pointer`}
+                    onClick={() => dispatch(paymentTermsOption(option))}
+                    key={id}
+                  >
+                    Next {option} {option > 1 ? "Days" : "Day"}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
 
         <FormInput
           label="Project Description"
@@ -142,7 +155,7 @@ function InvoiceDatePaymentTerms({ value, onChange }) {
             type="text"
             name="project-description"
             id="project-description"
-            className="invoice-form-input "
+            className="invoice-form-input bg-inherit"
             {...register("description", {
               required: "Can't be empty",
             })}

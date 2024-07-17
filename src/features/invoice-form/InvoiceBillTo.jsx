@@ -7,8 +7,6 @@ function InvoiceBillTo() {
     formState: { errors },
   } = useInvoiceContext();
 
-  console.log(errors);
-
   return (
     <section className="mt-8">
       <h4 className="form-section-header">Bill To</h4>
@@ -23,7 +21,7 @@ function InvoiceBillTo() {
             type="text"
             name="client-name"
             id="client-name"
-            className="invoice-form-input "
+            className="invoice-form-input bg-inherit text-inherit"
             {...register("clientName", {
               required: "can't be empty!",
             })}
@@ -39,7 +37,7 @@ function InvoiceBillTo() {
             type="text"
             name="clientEmail"
             id="clientEmail"
-            className="invoice-form-input "
+            className="invoice-form-input bg-inherit text-inherit"
             {...register("clientEmail", {
               required: "can't be empty!",
               pattern: {
@@ -59,7 +57,7 @@ function InvoiceBillTo() {
             type="text"
             name="clientAddress"
             id="clientAddress"
-            className="invoice-form-input "
+            className="invoice-form-input bg-inherit text-inherit"
             {...register("clientAddress.street", {
               required: "can't be empty!",
             })}
@@ -71,7 +69,7 @@ function InvoiceBillTo() {
             type="text"
             name="clientCity"
             id="clientCity"
-            className="invoice-form-input "
+            className="invoice-form-input bg-inherit text-inherit"
             {...register("clientAddress.city", {
               required: "can't be empty!",
             })}
@@ -86,7 +84,7 @@ function InvoiceBillTo() {
             type="text"
             name="clientPostCode"
             id="clientPostCode"
-            className="invoice-form-input "
+            className="invoice-form-input bg-inherit text-inherit"
             {...register("clientAddress.postCode", {
               required: "can't be empty!",
             })}
@@ -101,7 +99,7 @@ function InvoiceBillTo() {
             type="text"
             name="clientCountry"
             id="clientCountry"
-            className="invoice-form-input "
+            className="invoice-form-input bg-inherit text-inherit"
             {...register("clientAddress.country", {
               required: "can't be empty!",
             })}

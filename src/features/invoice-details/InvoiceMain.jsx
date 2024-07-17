@@ -1,21 +1,52 @@
 /* eslint-disable react/prop-types */
 
+import { useSelector } from "react-redux";
 import { formatCurrency, formatDate } from "../../utils/helper";
+import { getIsDarkMode } from "../dashboard/dashboardSlice";
 
 function InvoiceMain({ invoice }) {
+  const isDarkMode = useSelector(getIsDarkMode);
+
+  const invoicePropertyHeading = isDarkMode
+    ? "primary-text-dark"
+    : "primary-text";
+
+  const invoicePropertyDetail = isDarkMode
+    ? "secondary-text-dark"
+    : "secondary-text";
+
   return (
-    <div className="border border-black space-y-12 bg-white  rounded-md px-8 pb-8 pt-7 ">
+    <div
+      className={`border border-black space-y-12   rounded-md px-8 pb-8 pt-7 ${
+        isDarkMode ? "bg-[#1c243c]" : "bg-white"
+      } `}
+    >
       {/* header */}
       <header className="flex flex-col justify-between sm:flex-row sm:items-center space-y-8">
         <div className="space-y-1">
-          <p className="text-cinder font-bold text-[15px] ">
+          <p
+            className={`font-semibold text-[15px] ${
+              isDarkMode ? "text-white" : "text-cinder"
+            }`}
+          >
             <span className="text-gray-400">#</span>
             {invoice?.id}
           </p>
-          <p className="primary-text capitalize">{invoice?.description}</p>
+
+          <p
+            className={`capitalize text-[14px] font-medium ${
+              isDarkMode ? "primary-text-dark" : "primary-text"
+            } `}
+          >
+            {invoice?.description}
+          </p>
         </div>
 
-        <div className=" font-medium primary-text sm:text-right">
+        <div
+          className={`font-medium invoice-primary-text sm:text-right ${
+            isDarkMode ? "text-white" : "text-cornflower-blue"
+          }`}
+        >
           <p className="text-[13px]">{invoice?.senderAddress?.street}</p>
           <p className="text-[13px]">{invoice?.senderAddress?.city}</p>
           <p className="text-[13px]">{invoice?.senderAddress?.postCode}</p>
@@ -27,21 +58,33 @@ function InvoiceMain({ invoice }) {
 
       <main className="grid grid-cols-2 sm:grid-cols-3 gap-y-4">
         <div className="space-y-3">
-          <p className="capitalize text-[13px] primary-text">invoice date</p>
-          <p className="secondary-text">{formatDate(invoice?.createdAt)}</p>
+          <p className={`capitalize text-[13px] ${invoicePropertyHeading} `}>
+            invoice date
+          </p>
+          <p className={`${invoicePropertyDetail}`}>
+            {formatDate(invoice?.createdAt)}
+          </p>
         </div>
 
         <div className="space-y-3">
-          <p className="capitalize text-[13px] primary-text">bill to</p>
-          <p className="secondary-text">{invoice?.clientName}</p>
+          <p className={`capitalize text-[13px]  ${invoicePropertyHeading} `}>
+            bill to
+          </p>
+          <p className={` ${invoicePropertyDetail}`}>{invoice?.clientName}</p>
         </div>
 
         <div className="space-y-3 sm:order-4">
-          <p className="capitalize text-[13px] primary-text">payment due</p>
-          <p className="secondary-text">{formatDate(invoice?.paymentDue)}</p>
+          <p className={`capitalize text-[13px]  ${invoicePropertyHeading} `}>
+            payment due
+          </p>
+          <p className={` ${invoicePropertyDetail}`}>
+            {formatDate(invoice?.paymentDue)}
+          </p>
         </div>
 
-        <div className=" font-medium primary-text sm:order-5">
+        <div
+          className={` font-medium primary-text ${invoicePropertyHeading} sm:order-5`}
+        >
           <p className="text-[13px]">{invoice?.clientAddress?.street}</p>
           <p className="text-[13px]">{invoice?.clientAddress?.city}</p>
           <p className="text-[13px]">{invoice?.clientAddress?.postCode}</p>
@@ -49,8 +92,10 @@ function InvoiceMain({ invoice }) {
         </div>
 
         <div className="space-y-3 sm:order-3">
-          <p className="capitalize text-[13px] primary-text">send to</p>
-          <p className="secondary-text">{invoice?.clientEmail}</p>
+          <p className={`capitalize text-[13px] ${invoicePropertyHeading}`}>
+            send to
+          </p>
+          <p className={`${invoicePropertyDetail}`}>{invoice?.clientEmail}</p>
         </div>
       </main>
 
@@ -58,8 +103,14 @@ function InvoiceMain({ invoice }) {
 
       {/* footer */}
       <footer className="rounded-lg overflow-hidden ">
-        <ul className="bg-lightBackgroundColor pb-6 pt-2 sm:pt-9 sm:pb-9 px-6 space-y-5 sm:space-y-7 ">
-          <li className="primary-text hidden sm:grid sm:grid-cols-4 pb-3">
+        <ul
+          className={`${
+            isDarkMode ? "bg-ebony-clay" : "bg-lightBackgroundColor "
+          } pb-6 pt-2 sm:pt-9 sm:pb-9 px-6 space-y-5 sm:space-y-7 `}
+        >
+          <li
+            className={` ${invoicePropertyHeading} hidden sm:grid sm:grid-cols-4 pb-3`}
+          >
             <span>Item Name</span>
             <span className="justify-self-center">Qty.</span>
             <span className="justify-self-center">Price</span>
@@ -71,26 +122,40 @@ function InvoiceMain({ invoice }) {
               className=" items-center  grid grid-cols-2 sm:grid-cols-4"
             >
               <div className="space-y-1">
-                <p className="secondary-text">{item.name}</p>
-                <p className="text-[15px] font-bold text-cornflower-blue text-opacity-80 sm:hidden">
+                <p className={`${invoicePropertyDetail} `}>{item.name}</p>
+                <p
+                  className={`text-[15px] font-bold ${invoicePropertyDetail} text-opacity-80 sm:hidden`}
+                >
                   {item.quantity} x {formatCurrency(item.price)}
                 </p>
               </div>
-              <p className="hidden sm:block primary-text justify-self-center">
+              <p
+                className={`hidden sm:block  ${invoicePropertyHeading} justify-self-center`}
+              >
                 {item.quantity}
               </p>
-              <p className="hidden sm:block primary-text text-[15px] font-bold text-cornflower-blue text-opacity-80 justify-self-center">
+              <p
+                className={`hidden sm:block primary-text text-[15px] font-bold  text-opacity-80 justify-self-center ${invoicePropertyHeading} `}
+              >
                 {formatCurrency(item.price)}
               </p>
-              <p className="secondary-text justify-self-end">
-                {formatCurrency(item.total)}
+              <p
+                className={`secondary-text justify-self-end ${invoicePropertyDetail} `}
+              >
+                {formatCurrency(item?.total)}
               </p>
             </li>
           ))}
         </ul>
-        <div className="bg-ebony-clay py-8 flex justify-between items-center px-7">
-          <p className="text-white text-sm font-medium">Grand Total</p>
-          <h2 className="text-white text-[25px] font-bold">
+        <div
+          className={`${
+            isDarkMode ? "bg-gray-950" : "bg-ebony-clay"
+          }  py-8 flex justify-between items-center px-7`}
+        >
+          <p className="text-white text-[13px] sm:text-sm font-medium">
+            Grand Total
+          </p>
+          <h2 className="text-white text-xl sm:text-[25px] font-bold">
             {formatCurrency(invoice?.total)}
           </h2>
         </div>

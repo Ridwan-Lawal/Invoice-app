@@ -1,11 +1,22 @@
 /* eslint-disable react/prop-types */
 import { GoDotFill } from "react-icons/go";
+import { useSelector } from "react-redux";
+import { getIsDarkMode } from "../features/dashboard/dashboardSlice";
 
 function Status({ status = "pending" }) {
+  const isDarkMode = useSelector(getIsDarkMode);
   let color;
   if (status === "pending") color = "bg-orange-500 text-orange-500";
-  if (status === "paid") color = "bg-ocean-green text-ocean-green";
-  if (status === "draft") color = "bg-ebony-clay text-ebony-clay";
+  if (status === "paid")
+    color = ` ${
+      isDarkMode
+        ? "bg-green-400 text-green-400"
+        : "bg-ocean-green text-ocean-green"
+    }`;
+  if (status === "draft")
+    color = ` ${
+      isDarkMode ? "bg-gray-300 text-gray-300" : "bg-ebony-clay text-ebony-clay"
+    }`;
 
   return (
     <div

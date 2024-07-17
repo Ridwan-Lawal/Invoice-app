@@ -9,23 +9,30 @@
 }
 
 .invoice-form-label {
-  @apply text-[13.5px] font-medium text-cornflower-blue text-opacity-80 block;
+  @apply text-[13.5px] font-medium  text-opacity-80 block;
 }
 
 .invoice-form-input {
-  @apply border border-purple-300 border-opacity-[0.4] shadow-sm w-full py-3 px-4 focus:outline-none text-cinder font-semibold rounded-md text-[15px] focus:border-cornflower-blue;
+  @apply border border-purple-300 border-opacity-[0.4] shadow-sm w-full py-3 px-4 focus:outline-none  font-semibold rounded-md text-[15px] focus:border-cornflower-blue;
 }
 
 .invoice-form-input2 {
-  @apply shadow-sm w-full px-4 focus:outline-none text-cinder font-semibold rounded-md text-[15px];
+  @apply shadow-sm w-full px-4 focus:outline-none  font-semibold rounded-md text-[15px];
 }
 
 .primary-text {
   @apply text-cornflower-blue text-sm text-opacity-80 font-semibold;
 }
 
+.primary-text-dark {
+  @apply text-white text-sm text-opacity-80 font-semibold;
+}
 .secondary-text {
   @apply text-cinder font-bold text-[15px];
+}
+
+.secondary-text-dark {
+  @apply text-white font-bold text-[15px];
 }
 
 /* Style for all scrollable elements */
@@ -34,7 +41,7 @@
 }
 
 .btn-add-new {
-  @apply font-bold text-cornflower-blue text-opacity-90 flex items-center justify-center w-full gap-2 text-[15px]  py-3.5 rounded-3xl bg-cornflower-blue bg-opacity-5 hover:bg-opacity-[0.15] transition-colors mt-8;
+  @apply font-bold text-opacity-90 flex items-center justify-center w-full gap-2 text-[15px]  py-3.5 rounded-3xl  hover:bg-opacity-[0.15] transition-colors mt-8;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {

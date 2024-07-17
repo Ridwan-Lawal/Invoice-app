@@ -3,12 +3,11 @@ import { useInvoiceContext } from "../../contexts/FormContext";
 
 function InvoiceBillFrom() {
   // start registering the fieldse
-
   const {
     register,
     formState: { errors },
   } = useInvoiceContext();
-  console.log(errors);
+
   return (
     <section className="mt-8">
       <h4 className="form-section-header">Bill From</h4>
@@ -23,7 +22,7 @@ function InvoiceBillFrom() {
             type="text"
             name="street"
             id="street"
-            className="invoice-form-input "
+            className="invoice-form-input bg-inherit text-inherit"
             {...register("senderAddress.street", {
               required: "can't be empty!",
             })}
@@ -35,7 +34,7 @@ function InvoiceBillFrom() {
             type="text"
             name="city"
             id="city"
-            className="invoice-form-input "
+            className="invoice-form-input bg-inherit text-inherit"
             {...register("senderAddress.city", {
               required: "can't be empty!",
             })}
@@ -50,7 +49,7 @@ function InvoiceBillFrom() {
             type="text"
             name="postCode"
             id="postCode"
-            className="invoice-form-input "
+            className="invoice-form-input bg-inherit text-inherit"
             {...register("senderAddress.postCode", {
               required: "can't be empty!",
             })}
@@ -65,7 +64,7 @@ function InvoiceBillFrom() {
             type="text"
             name="country"
             id="country"
-            className="invoice-form-input "
+            className="invoice-form-input bg-inherit"
             {...register("senderAddress.country", {
               required: "can't be empty!",
             })}

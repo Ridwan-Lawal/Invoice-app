@@ -8,35 +8,38 @@ import InvoiceBillTo from "./InvoiceBillTo";
 import InvoiceDatePaymentTerms from "./InvoiceDatePaymentTerms";
 import InvoiceItemList from "./InvoiceItemList";
 import { useInvoiceContext } from "../../contexts/FormContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addDays } from "date-fns";
 import { formatInvoiceDate, generateRandomId } from "../../utils/helper";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiAddInvoice } from "../../services/apiInvoice";
-import toast from "react-hot-toast";
+import { useAddUpdateInvoice } from "../../hooks/useAddUpdateInvoice.js";
 import Loader from "../../ui/Loader";
+import { getIsDarkMode } from "../dashboard/dashboardSlice.js";
+
+// add dark mode
+// use custom hooks for the hooks from third party library
 
 function InvoiceForm() {
-  const isFormOpen = useSelector((store) => store.invoiceForm.isFormOpen);
   const dispatch = useDispatch();
-  const { handleSubmit, append, reset, getValues } = useInvoiceContext();
+  const { handleSubmit, append, getValues, reset, clearErrors } =
+    useInvoiceContext();
   const { paymentTerms } = useSelector(getInvoiceFormReducer);
-  const queryClient = useQueryClient();
+  const isDarkMode = useSelector(getIsDarkMode);
 
   // from react-calendar
   const [value, onChange] = useState(new Date());
 
-  // To add the form data to the form
-  const { isLoading: isAddingInvoice, mutate } = useMutation({
-    mutationFn: apiAddInvoice,
-    onSuccess: () => {
-      toast.success("Invoice successfully added");
-      queryClient.invalidateQueries("invoices");
-      reset();
-      dispatch(openingForm());
+  // To add or update the form the form data to the form
+  const { isAddingUpdatingInvoice, mutateToAddUpdate, isFormOpen, formType } =
+    useAddUpdateInvoice();
+
+  useEffect(
+    function () {
+      if (formType === "Create") {
+        reset();
+      }
     },
-    onError: (err) => toast.error(err.message),
-  });
+    [formType, reset]
+  );
 
   function onSubmit(data) {
     const futureDate = addDays(value, paymentTerms);
@@ -55,7 +58,11 @@ function InvoiceForm() {
         0
       ),
     };
-    mutate(invoiceFormData);
+    mutateToAddUpdate(invoiceFormData, {
+      onSuccess: () => {
+        reset();
+      },
+    });
     console.log(invoiceFormData);
   }
 
@@ -79,11 +86,12 @@ function InvoiceForm() {
       ),
     };
 
-    mutate(invoiceFormData);
+    mutateToAddUpdate(invoiceFormData);
+    clearErrors();
     console.log(invoiceFormData);
   }
 
-  if (isAddingInvoice) return <Loader />;
+  if (isAddingUpdatingInvoice) return <Loader />;
   return (
     <div
       className={`bg-black ${
@@ -95,14 +103,21 @@ function InvoiceForm() {
       {/* overflow scroll */}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className={` bg-white z-50 sm:max-w-[600px] h-screen transition-all duration-500 -trans sm:rounded-r-3xl ${
+        className={` ${
+          isDarkMode ? "bg-[#141424]" : "bg-white"
+        }  z-50 sm:max-w-[600px] h-screen transition-all duration-500 -trans sm:rounded-r-3xl ${
           isFormOpen ? "px-10 translate-x-0" : "px-0  -translate-x-full"
         } pt-10 `}
       >
-        <div className="px-3  h-[430px] md:h-[80vh] overflow-scroll pb-20 custom-scrollbar bg-white">
-          <h1 className="text-[24px] font-bold text-cinder ">Create Form</h1>
-          <input type="text" />
-          <input type="text" />
+        <div className="px-3  h-[430px] md:h-[80vh] overflow-scroll pb-20 custom-scrollbar bg-inherit">
+          <h1
+            className={`text-[24px] font-bold  ${
+              isDarkMode ? "text-white" : "text-cinder"
+            } `}
+          >
+            {formType} Form
+          </h1>
+
           <InvoiceBillFrom />
           <InvoiceBillTo />
 
@@ -115,10 +130,19 @@ function InvoiceForm() {
           {/* add new item button */}
           {/* when clicked, increase the length of the array */}
           <button
-            className="btn-add-new"
+            className={`btn-add-new ${
+              isDarkMode
+                ? "text-gray-300 bg-ebony-clay"
+                : "text-cornflower-blue bg-cornflower-blue bg-opacity-5"
+            }`}
             onClick={() => append({ name: "", quantity: "", price: "" })}
           >
-            <IoAdd className="text-sm  text-gray-500" /> Add New Item
+            <IoAdd
+              className={`text-sm  ${
+                isDarkMode ? "bg-inherit" : "text-gray-500"
+              }`}
+            />{" "}
+            Add New Item
           </button>
         </div>
 
@@ -127,26 +151,40 @@ function InvoiceForm() {
           <Button
             onClick={() => dispatch(openingForm())}
             type="button"
-            textColor="text-cornflower-blue text-opacity-90"
-            bgColor="bg-cornflower-blue bg-opacity-5 hover:bg-opacity-[0.15]"
+            textColor={` ${
+              isDarkMode
+                ? "text-gray-300"
+                : "text-cornflower-blue text-opacity-90"
+            } `}
+            bgColor={`${
+              isDarkMode ? "bg-ebony-clay" : "bg-cornflower-blue bg-opacity-5 "
+            } hover:bg-opacity-[0.15]`}
             fontSize="text-[15px]"
             customStyles="py-3 px-6"
           >
-            Discard
+            {formType === "Create" ? "Discard" : "Cancel"}
           </Button>
 
           <div className="flex item-center gap-3 py-4">
-            <Button
-              name="button"
-              onClick={onDraft}
-              bgColor="bg-cinder bg-opacity-90 hover:bg-opacity-100"
-              textColor="text-gray-400 text-opacity-90"
-              customStyles="py-3.5 px-5"
-            >
-              Save as Draft
-            </Button>
+            {formType === "Create" && (
+              <Button
+                name="button"
+                onClick={onDraft}
+                bgColor={` hover:bg-opacity-100 ${
+                  isDarkMode ? "bg-slate-700" : "bg-cinder bg-opacity-90"
+                } `}
+                textColor={` ${
+                  isDarkMode ? "text-gray-300" : "text-gray-400 text-opacity-90"
+                } `}
+                customStyles="py-3.5 px-5"
+              >
+                Save as Draft
+              </Button>
+            )}
 
-            <Button name="save">Save & Send</Button>
+            <Button name="save">
+              {formType === "Create" ? "Save & Send" : "Save changes"}
+            </Button>
           </div>
         </div>
       </form>

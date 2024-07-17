@@ -4,8 +4,12 @@ import { useInvoiceContext } from "../../contexts/FormContext";
 import FormInput from "./FormInput";
 
 import { formatCurrency } from "../../utils/helper";
+import { useSelector } from "react-redux";
+import { getIsDarkMode } from "../dashboard/dashboardSlice";
 
 function InvoiceItemList() {
+  const isDarkMode = useSelector(getIsDarkMode);
+  console.log(isDarkMode);
   const {
     register,
     formState: { errors },
@@ -25,7 +29,13 @@ function InvoiceItemList() {
   return (
     <section className="mt-9 ">
       <h2 className="text-2xl font-bold text-gray-500">Item List</h2>
-      <aside className="hidden sm:grid grid-cols-8 gap-4 items-center pb-1.5 mt-2.5 ">
+      <aside
+        className={`hidden sm:grid grid-cols-8 gap-4 items-center pb-1.5 mt-2.5 ${
+          isDarkMode
+            ? "text-slate-400 font-medium"
+            : "text-cornflower-blue opacity-30"
+        }`}
+      >
         <p className="invoice-form-label col-span-3">Item Name</p>
         <p className="invoice-form-label">Qty.</p>
         <p className="invoice-form-label col-span-2">Price</p>
@@ -51,7 +61,7 @@ function InvoiceItemList() {
               type="text"
               name="item-name-id"
               id="item-name-id"
-              className="invoice-form-input "
+              className="invoice-form-input bg-inherit"
               {...register(`items[${index}].name`, {
                 required: "can't be empty",
               })}
@@ -69,7 +79,7 @@ function InvoiceItemList() {
               name="quantity-id"
               id="quantity-id"
               style={{ paddingLeft: "5px", paddingRight: "4px" }}
-              className="invoice-form-input"
+              className="invoice-form-input bg-inherit"
               {...register(`items[${index}].quantity`, {
                 required: "can't be empty",
                 pattern: {
@@ -91,7 +101,7 @@ function InvoiceItemList() {
               type="text"
               name="price-id"
               id="price-id"
-              className="invoice-form-input col-span-2 "
+              className="invoice-form-input col-span-2 bg-inherit"
               {...register(`items[${index}].price`, {
                 required: "can't be empty",
                 pattern: {
@@ -106,7 +116,11 @@ function InvoiceItemList() {
 
           <div className="col-span-auto  word-wrap w-[80px]">
             <p className="invoice-form-label sm:hidden">Total</p>
-            <p className="font-bold  text-[15px] text-cornflower-blue text-opacity-80 mt-5 sm:mt-0  break-words">
+            <p
+              className={`font-bold  text-[15px]  text-opacity-80 mt-5 sm:mt-0  break-words ${
+                isDarkMode ? "text-gray-100" : "text-cornflower-blue"
+              } `}
+            >
               {totalPricePerItem(index)}
             </p>
           </div>
@@ -119,7 +133,11 @@ function InvoiceItemList() {
             }}
             className="sm:-mt-1  flex justify-center mt-10"
           >
-            <FaTrash className="text-cornflower-blue text-opacity-80" />
+            <FaTrash
+              className={`text-opacity-80 ${
+                isDarkMode ? "text-gray-400" : "text-cornflower-blue "
+              }`}
+            />
           </button>
         </div>
       ))}

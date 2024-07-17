@@ -32,7 +32,7 @@ export default {
         // dark mode
         lilac: "#caa3c5",
         mirage: "#171a2e",
-        " royal-blue": "#6865e6",
+        "royal-blue": "#6865e6",
         "ebony-clay": "#232c44",
         ferra: "#6e4952",
         "san-juan": "#32426f",
@@ -43,7 +43,8 @@ export default {
       },
 
       boxShadow: {
-        top: "20px 20px 20px 20px #a6a4a4",
+        lightmode: "15px 15px 15px 15px #c9c9c7",
+        darkMode: "15px 15px 15px 15px #010618",
       },
     },
   },

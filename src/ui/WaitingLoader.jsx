@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import { ColorRing, Puff } from "react-loader-spinner";
+import { useSelector } from "react-redux";
+import { getIsDarkMode } from "../features/dashboard/dashboardSlice";
 
 function WaitingLoader({ marginTop }) {
   return (
@@ -27,12 +29,13 @@ function WaitingLoader({ marginTop }) {
 }
 
 export function StatusLoader() {
+  const isDarkMode = useSelector(getIsDarkMode);
   return (
     <Puff
       visible={true}
       height="20"
       width="20"
-      color="#010816"
+      color={isDarkMode ? "#ffffff" : "#010816"}
       ariaLabel="puff-loading"
       wrapperStyle={{}}
       wrapperClass=""

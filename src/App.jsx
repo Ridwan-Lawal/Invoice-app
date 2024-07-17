@@ -6,8 +6,11 @@ import PageNofFound from "./pages/PageNofFound";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { getIsDarkMode } from "./features/dashboard/dashboardSlice";
 
 function App() {
+  const isDarkMode = useSelector(getIsDarkMode);
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -15,8 +18,15 @@ function App() {
       },
     },
   });
+
+  console.log(navigator.onLine);
+
   return (
-    <div className="h-screen  font-spartan bg-lightBackgroundColor overflow-hidden border border-green-500 custom-scrollbar">
+    <div
+      className={`h-screen  font-spartan  overflow-hidden border border-green-500 custom-scrollbar ${
+        isDarkMode ? "bg-[#141424]" : "bg-lightBackgroundColor"
+      } `}
+    >
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <BrowserRouter>
