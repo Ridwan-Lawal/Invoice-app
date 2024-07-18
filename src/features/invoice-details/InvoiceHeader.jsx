@@ -25,11 +25,11 @@ function InvoiceHeader({ invoice, onOpenCloseModal, markAsPaid, isPaying }) {
 
   return (
     <header
-      className={` border border-black flex justify-between items-center px-6 py-4 shadow-md  rounded-md ${
+      className={`flex justify-between items-center px-6 py-4 shadow-md  rounded-md ${
         isDarkMode ? "bg-[#1c243c] shadow-gray-900" : "bg-white shadow-gray-200"
       } `}
     >
-      <section className="flex gap-6 items-center border w-full justify-between md:w-fit ">
+      <section className="flex gap-6 items-center  w-full justify-between md:w-fit ">
         <p
           className={`invoice-primary-text font-medium ${
             isDarkMode ? "text-white" : "text-cornflower-blue"
@@ -41,7 +41,7 @@ function InvoiceHeader({ invoice, onOpenCloseModal, markAsPaid, isPaying }) {
       </section>
 
       <section
-        className={`flex gap-3 border border-green items-center fixed bottom-0 w-full left-0 justify-center py-5   md:static md:py-0 md:shadow-none md:justify-between md:w-fit  ${
+        className={`flex gap-3 items-center fixed bottom-0 w-full left-0 justify-center py-5   md:static md:py-0 md:shadow-none md:justify-between md:w-fit  ${
           isDarkMode
             ? "bg-[#1c243c] shadow-darkMode"
             : "bg-white shadow-lightmode"

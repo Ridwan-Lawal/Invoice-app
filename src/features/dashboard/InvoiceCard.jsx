@@ -14,15 +14,15 @@ function InvoiceCard({ invoice }) {
     <div
       onClick={() => navigate(`invoice/${invoice?.id}`)}
       className={` ${
-        isDarkMode ? "bg-[#1c243c] shadow-gray-950" : "bg-white shadow-gray-100"
-      } shadow-sm   border border-transparent rounded-lg hover:border-mirage  hover:scale-[1.01] cursor-pointer  transition-all duration-200 px-5 pb-4 pt-6  `}
+        isDarkMode ? "bg-[#1c243c] shadow-gray-950" : "bg-white shadow-gray-200"
+      } shadow-md   border border-transparent rounded-lg hover:border-mirage  hover:scale-[1.01] cursor-pointer  transition-all duration-200 px-5 pb-4 pt-6  `}
     >
       {/* id date, name  price, status*/}
       <div className=" text-black font-spartan flex flex-col gap-1    md:flex-row md:justify-between md:max-w-[700px] mx-auto">
         {/* id and date and name */}
-        <div className="flex justify-between  border md:items-center md:w-[53%]">
+        <div className="flex justify-between   md:items-center md:w-[53%]">
           {/* id and date */}
-          <section className="flex flex-col gap-y-3 md:flex-row md:items-center border md:w-[60%] justify-between md:gap-3">
+          <section className="flex flex-col gap-y-3 md:flex-row md:items-center  md:w-[60%] justify-between md:gap-3">
             <p
               className={`font-semibold ${
                 isDarkMode ? "text-white" : "text-cinder"

@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useMemo } from "react";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
 
 const FormContext = createContext();
@@ -23,8 +23,6 @@ function FormContextProvider({ children }) {
       items: [{ name: "", quantity: "", price: "", total: "" }],
     },
   });
-
-  console.log(handleSubmit);
 
   /* for adding new item inputs to the items Array
     - we set the name:'items' i.e the array of the items in react form, so the 'fields' properties will now be the 'items' array in the react form, we loop the 'fields' prop and render sets of input field for each 'item' in the fields prop. 
@@ -61,32 +59,45 @@ function FormContextProvider({ children }) {
     [unregister]
   );
 
+  const context = useMemo(() => {
+    return {
+      register,
+      handleSubmit,
+      watch,
+      control,
+      formState,
+      fields,
+      append,
+      remove,
+      itemsWatch,
+      reset,
+      getValues,
+      setValue,
+      clearErrors,
+    };
+  }, [
+    register,
+    handleSubmit,
+    watch,
+    control,
+    formState,
+    fields,
+    append,
+    remove,
+    itemsWatch,
+    reset,
+    getValues,
+    setValue,
+    clearErrors,
+  ]);
+
   return (
-    <FormContext.Provider
-      value={{
-        register,
-        handleSubmit,
-        watch,
-        control,
-        formState,
-        fields,
-        append,
-        remove,
-        itemsWatch,
-        reset,
-        getValues,
-        setValue,
-        clearErrors,
-      }}
-    >
-      {children}
-    </FormContext.Provider>
+    <FormContext.Provider value={context}>{children}</FormContext.Provider>
   );
 }
 
 export function useInvoiceContext() {
   const context = useContext(FormContext);
-
   return context;
 }
 

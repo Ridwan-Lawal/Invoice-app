@@ -2,13 +2,13 @@ import { useSelector } from "react-redux";
 import { getIsDarkMode } from "../features/dashboard/dashboardSlice";
 import BackButton from "../ui/BackButton";
 
-function PageNofFound() {
+function PageNotFound() {
   const isDarkMode = useSelector(getIsDarkMode);
   console.log(isDarkMode);
   return (
     <div className="py-8 px-6 sm:py-10 sm:px-8">
       <BackButton />
-      <div className="flex items-center justify-center  border h-[80vh]">
+      <div className="flex items-center justify-center h-[80vh]">
         <div className="flex flex-col items-center justify-center">
           <p className="text-red-600 tracking-widest text-6xl sm:text-7xl font-bold">
             404
@@ -26,4 +26,4 @@ function PageNofFound() {
   );
 }
 
-export default PageNofFound;
+export default PageNotFound;

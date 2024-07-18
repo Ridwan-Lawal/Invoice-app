@@ -6,7 +6,7 @@ import { getIsDarkMode } from "../features/dashboard/dashboardSlice";
 function WaitingLoader({ marginTop }) {
   return (
     <div
-      className={`flex items-center justify-center h-[30vh] w-[100%] border ${marginTop}`}
+      className={`flex items-center justify-center h-[30vh] w-[100%] ${marginTop}`}
     >
       <ColorRing
         visible={true}

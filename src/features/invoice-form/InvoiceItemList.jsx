@@ -9,7 +9,6 @@ import { getIsDarkMode } from "../dashboard/dashboardSlice";
 
 function InvoiceItemList() {
   const isDarkMode = useSelector(getIsDarkMode);
-  console.log(isDarkMode);
   const {
     register,
     formState: { errors },
@@ -115,7 +114,13 @@ function InvoiceItemList() {
           {/* total */}
 
           <div className="col-span-auto  word-wrap w-[80px]">
-            <p className="invoice-form-label sm:hidden">Total</p>
+            <p
+              className={`invoice-form-label sm:hidden ${
+                isDarkMode && "text-gray-200"
+              } `}
+            >
+              Total
+            </p>
             <p
               className={`font-bold  text-[15px]  text-opacity-80 mt-5 sm:mt-0  break-words ${
                 isDarkMode ? "text-gray-100" : "text-cornflower-blue"

@@ -10,8 +10,7 @@ import WaitingLoader from "../ui/WaitingLoader";
 import { useReadFilterSortData } from "../hooks/useReadFilterSortData";
 import { useReadInvoices } from "../hooks/useReadInvoices";
 
-// remove the borders
-// and store the hooks into
+// split javascript bundle size using lazing loading
 
 function Dashboard() {
   // for reading the mutate state of the mutation of adding the filter and sort value to supabase
@@ -20,7 +19,6 @@ function Dashboard() {
   // for reading the invoices from the api
   const { invoices, isLoading, isError } = useReadInvoices();
 
-  console.log(invoices);
   // for reading the filter and the sort value
   const filterSortData = useReadFilterSortData();
 
@@ -32,8 +30,6 @@ function Dashboard() {
     if (filterBy === "All") return invoices;
     return filterBy ? invoice.status === filterBy.toLowerCase() : invoices;
   });
-
-  console.log(filteredData);
 
   // I am using the filtered data to sort from above to sort, so if there is a sortBy value on supabase, then the data will be filtered, if not then the filteredData from above will be returned without sorting.
   const sortBy = filterSortData?.at(0)?.sortBy;
@@ -61,7 +57,7 @@ function Dashboard() {
   if (isError) toast.error("Couldn't fetch data from api");
 
   return (
-    <div className="px-4 sm:px-6 mt-0 md:mt-[73px] mx-auto border border-green-700 -z-10 max-w-[750px] pb-32 md:pb-14">
+    <div className="px-4 sm:px-6 mt-0 md:mt-[73px] mx-auto  -z-10 max-w-[750px] pb-32 md:pb-14">
       <DashBoardHeader />
       <section className="mt-16 md:mt-12 space-y-5 transition-all duration-500 max-w-[750px] mx-auto">
         {isMutating ? (

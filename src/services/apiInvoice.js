@@ -4,7 +4,6 @@ import invoiceDatas from "../data/data.json";
 
 // api to add invoice to supabase
 export async function apiAddInvoice(newInvoice) {
-  console.log(newInvoice);
   const { data, error } = await supabase
     .from("Invoice")
     .insert(newInvoice)
@@ -41,7 +40,6 @@ export async function apiReadInvoice() {
 
 // api to read invoce by id
 export async function apiReadInvoiceById(invoiceId) {
-  console.log(invoiceId);
   const { data, error } = await supabase
     .from("Invoice")
     .select("*")
@@ -61,7 +59,6 @@ export async function apiDeleteInvoice(invoiceId) {
 
 // api to mark invoice as paid
 export async function apiMarkAsPaid(invoiceId) {
-  console.log(invoiceId);
   const { data, error } = await supabase
     .from("Invoice")
     .update({ status: "paid" })
@@ -76,7 +73,6 @@ export async function apiMarkAsPaid(invoiceId) {
 // api to edit and update invoice
 
 export async function apiUpdateInvoice(invoice) {
-  console.log(invoice);
   const { data, error } = await supabase
     .from("Invoice")
     .update(invoice)

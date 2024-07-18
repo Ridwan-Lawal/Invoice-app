@@ -22,7 +22,6 @@ import { getIsDarkMode } from "../dashboard/dashboardSlice";
 
 function InvoiceDatePaymentTerms({ value, onChange }) {
   const isDarkMode = useSelector(getIsDarkMode);
-  console.log(isDarkMode);
   const {
     register,
     formState: { errors },
@@ -53,7 +52,9 @@ function InvoiceDatePaymentTerms({ value, onChange }) {
           <FormInput label="Invoice Date">
             <div
               style={
-                isCalendarFocus ? style : { border: "1px solid lightgray" }
+                isCalendarFocus
+                  ? style
+                  : { border: isDarkMode ? "" : "1px solid lightgray" }
               }
               onClick={() => dispatch(calendarOpening())}
               className={`flex items-center invoice-form-input relative `}
@@ -75,8 +76,8 @@ function InvoiceDatePaymentTerms({ value, onChange }) {
             </div>
           </FormInput>
           {isCalendarOpen && (
-            <div className="relative flex ">
-              <div className="absolute w-full">
+            <div className="relative">
+              <div className="absolute min-h-[120%]">
                 <Calendar
                   onChange={onChange}
                   value={value}
@@ -89,13 +90,15 @@ function InvoiceDatePaymentTerms({ value, onChange }) {
 
         {/* payment terms */}
 
-        <div className="flex flex-col border gap-4 ">
+        <div className="flex flex-col  gap-4 ">
           <FormInput label="Payment Terms">
             <div
               style={
-                isPaymentTermsFocus ? style : { border: "1px solid lightgray" }
+                isPaymentTermsFocus
+                  ? style
+                  : { border: isDarkMode ? "" : "1px solid lightgray" }
               }
-              className=" rounded-md flex  items-center py-3 cursor-pointer"
+              className="rounded-md flex  items-center py-3 overflow-hidden cursor-pointer"
               onClick={() => dispatch(paymentTermsModalOpening())}
             >
               <input
@@ -122,7 +125,7 @@ function InvoiceDatePaymentTerms({ value, onChange }) {
           {isPaymentTermsOpen && (
             <div className="relative ">
               <ul
-                className={`border rounded-md overflow-hidden shadow-2xl absolute w-full ${
+                className={` rounded-md overflow-hidden shadow-2xl absolute w-full ${
                   isDarkMode ? "bg-[#1c243c] " : "bg-white"
                 } `}
               >
@@ -132,8 +135,10 @@ function InvoiceDatePaymentTerms({ value, onChange }) {
                       paymentTerms === option
                         ? "text-cornflower-blue"
                         : isDarkMode
-                        ? "text-white border-gray-900"
+                        ? "text-white"
                         : "text-cinder"
+                    } ${
+                      isDarkMode && "border-gray-900"
                     } py-4 border-b px-4  text-[14px] font-bold cursor-pointer`}
                     onClick={() => dispatch(paymentTermsOption(option))}
                     key={id}

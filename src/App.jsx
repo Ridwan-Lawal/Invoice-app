@@ -1,13 +1,16 @@
+import { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import Invoice from "./pages/Invoice";
-import AppLayout from "./ui/AppLayout";
-import PageNofFound from "./pages/PageNofFound";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { getIsDarkMode } from "./features/dashboard/dashboardSlice";
+import Loader from "./ui/Loader";
+
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Invoice = lazy(() => import("./pages/Invoice"));
+const PageNotFound = lazy(() => import("./pages/Invoice"));
+const AppLayout = lazy(() => import("./ui/AppLayout"));
 
 function App() {
   const isDarkMode = useSelector(getIsDarkMode);
@@ -19,24 +22,24 @@ function App() {
     },
   });
 
-  console.log(navigator.onLine);
-
   return (
     <div
-      className={`h-screen  font-spartan  overflow-hidden border border-green-500 custom-scrollbar ${
+      className={`h-screen  font-spartan  overflow-hidden  custom-scrollbar ${
         isDarkMode ? "bg-[#141424]" : "bg-lightBackgroundColor"
       } `}
     >
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <BrowserRouter>
-          <Routes>
-            <Route element={<AppLayout />}>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/invoice/:invoiceId" element={<Invoice />} />
-            </Route>
-            <Route path="*" element={<PageNofFound />} />
-          </Routes>
+          <Suspense fallback={<Loader />}>
+            <Routes>
+              <Route element={<AppLayout />}>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/invoice/:invoiceId" element={<Invoice />} />
+              </Route>
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </Suspense>
         </BrowserRouter>
 
         <Toaster
@@ -54,8 +57,8 @@ function App() {
               fontSize: "16px",
               maxWidth: "500px",
               padding: "13px 20px",
-              backgroundColor: "#ffffff",
-              color: "dark",
+              backgroundColor: isDarkMode ? "#171a2e" : "#ffffff",
+              color: isDarkMode ? "#ffffff" : "#171a2e",
             },
           }}
         />

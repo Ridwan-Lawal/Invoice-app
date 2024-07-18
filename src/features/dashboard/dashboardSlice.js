@@ -5,7 +5,7 @@ const initialState = {
   sortOptionsIsOpen: false,
   filterOption: "",
   sortOption: "",
-  isDarkMode: true,
+  isDarkMode: false,
 };
 
 const dashboardSlice = createSlice({

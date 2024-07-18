@@ -25,7 +25,7 @@ function DashBoardHeader() {
   const { invoices } = useReadInvoices();
 
   return (
-    <div className="flex border justify-between mt-7 font-spartan max-w-[710px] xl:max-w-[750px] mx-auto  ">
+    <div className="flex  justify-between mt-7 font-spartan max-w-[710px] xl:max-w-[750px] mx-auto  ">
       <section>
         <h1
           className={`font-bold text-[33px] ${
@@ -42,7 +42,7 @@ function DashBoardHeader() {
         </p>
       </section>
 
-      <div className="flex items-center gap-5 border border-black md:gap-8">
+      <div className="flex items-center gap-5  md:gap-8">
         {/* filter */}
         <InvoiceArrange>
           <InvoiceArrange.Button

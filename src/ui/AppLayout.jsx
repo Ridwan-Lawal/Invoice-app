@@ -8,13 +8,13 @@ function AppLayout() {
   return (
     <FormContextProvider>
       <div className="flex flex-col md:flex-row ">
-        <div className="flex   flex-col md:flex-row  border border-red-500 ">
+        <div className="flex   flex-col md:flex-row">
           <NavSideBar />
           <div className="">
             <InvoiceForm />
           </div>
         </div>
-        <main className="border h-screen overflow-auto border-blue-700  md:w-[100vw]  right-0 bottom-0 custom-scrollbar  ">
+        <main className=" h-screen overflow-auto md:w-[100vw]  right-0 bottom-0 custom-scrollbar  ">
           <Outlet />
         </main>
       </div>

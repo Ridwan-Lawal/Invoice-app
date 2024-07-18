@@ -17,7 +17,7 @@ function InvoiceMain({ invoice }) {
 
   return (
     <div
-      className={`border border-black space-y-12   rounded-md px-8 pb-8 pt-7 ${
+      className={`space-y-12 rounded-md px-8 pb-8 pt-7 ${
         isDarkMode ? "bg-[#1c243c]" : "bg-white"
       } `}
     >

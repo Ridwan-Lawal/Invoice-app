@@ -35,7 +35,7 @@ function Invoice() {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="px-5 sm:px-9 pt-11 md:pt-20 space-y-8  border border-green-900 mb-56 md:mb-14 md:max-w-3xl mx-auto ">
+    <div className="px-5 sm:px-9 pt-11 md:pt-20 space-y-8  mb-56 md:mb-14 md:max-w-3xl mx-auto ">
       {isDeleteModal && (
         <Modal
           invoiceId={invoiceId}
