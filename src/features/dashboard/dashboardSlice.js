@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// fetch the theme from the api
+
 const initialState = {
   filterOptionsIsOpen: false,
   sortOptionsIsOpen: false,
@@ -30,6 +32,9 @@ const dashboardSlice = createSlice({
     toggleTheme(state) {
       state.isDarkMode = !state.isDarkMode;
     },
+    updateThemeonWebsiteReload(state, action) {
+      state.isDarkMode = action.payload;
+    },
   },
 });
 
@@ -39,6 +44,7 @@ export const {
   filterOptionsButtonClick,
   sortOptionsButtonClick,
   toggleTheme,
+  updateThemeonWebsiteReload,
 } = dashboardSlice.actions;
 export default dashboardSlice.reducer;
 

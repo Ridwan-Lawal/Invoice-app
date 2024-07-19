@@ -2,9 +2,12 @@ import { Outlet } from "react-router-dom";
 import NavSideBar from "./NavSideBar";
 import InvoiceForm from "../features/invoice-form/InvoiceForm";
 import FormContextProvider from "../contexts/FormContext";
+import { useAddTheme } from "../hooks/useAddTheme";
 
 function AppLayout() {
-  // build the form
+  // use to add the theme from supabase
+  useAddTheme();
+
   return (
     <FormContextProvider>
       <div className="flex flex-col md:flex-row ">

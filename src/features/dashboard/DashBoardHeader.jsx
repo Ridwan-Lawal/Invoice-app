@@ -36,9 +36,9 @@ function DashBoardHeader() {
         </h1>
         <p className="text-[13.5px] text-gray-400 font-semibold   -mt-2 md:mt-0 ">
           <span className="hidden md:block">
-            There are total of {invoices.length} invoices
+            There are total of {invoices?.length} invoices
           </span>
-          <span className="md:hidden">{invoices.length} invoices</span>
+          <span className="md:hidden">{invoices?.length} invoices</span>
         </p>
       </section>
 

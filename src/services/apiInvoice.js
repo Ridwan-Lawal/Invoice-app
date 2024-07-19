@@ -82,3 +82,24 @@ export async function apiUpdateInvoice(invoice) {
   if (error) throw new error(error.message);
   return data;
 }
+
+export async function apiReadTheme() {
+  let { data: Theme, error } = await supabase.from("Theme").select("theme");
+
+  if (error) throw new Error(error.message);
+
+  return Theme;
+}
+
+export async function apiUpdateTheme(theme) {
+  console.log(theme);
+  const { data, error } = await supabase
+    .from("Theme")
+    .update({ theme })
+    .eq("id", 1)
+    .select();
+
+  if (error) throw new Error("Couldn't update theme!");
+
+  return data;
+}

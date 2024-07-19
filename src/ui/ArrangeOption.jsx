@@ -15,7 +15,6 @@ function ArrangeOption({ option, type }) {
 
   // for reading the filter and the sort value
   const filterSortData = useReadFilterSortData();
-  console.log(filterSortData);
 
   // getting the filterOptions and the sortOptions from the dashboard reducer
 

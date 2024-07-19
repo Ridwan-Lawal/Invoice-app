@@ -4,11 +4,20 @@ import {
   getIsDarkMode,
   toggleTheme,
 } from "../features/dashboard/dashboardSlice";
+import { useUpdateTheme } from "../hooks/useUpdateTheme";
 
 function NavSideBar() {
   const { isFormOpen } = useSelector(getInvoiceFormReducer);
   const isDarkMode = useSelector(getIsDarkMode);
   const dispatch = useDispatch();
+
+  // mutate function the update the theme
+  const mutate = useUpdateTheme();
+
+  function handlethemeSwitch() {
+    dispatch(toggleTheme());
+    mutate(!isDarkMode);
+  }
   return (
     <div
       className={`h-[80px] md:w-[90px] ${
@@ -29,10 +38,7 @@ function NavSideBar() {
           </section>
 
           {/* light and dark theme switch */}
-          <section
-            onClick={() => dispatch(toggleTheme())}
-            className="w-fit cursor-pointer"
-          >
+          <section onClick={handlethemeSwitch} className="w-fit cursor-pointer">
             {isDarkMode ? (
               <img src="/icon-sun.svg" alt="Light mode" />
             ) : (
