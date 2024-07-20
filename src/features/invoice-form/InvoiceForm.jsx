@@ -15,8 +15,7 @@ import { useAddUpdateInvoice } from "../../hooks/useAddUpdateInvoice.js";
 import Loader from "../../ui/Loader";
 import { getIsDarkMode } from "../dashboard/dashboardSlice.js";
 
-// add dark mode
-// use custom hooks for the hooks from third party library
+// handle the calender size on mobile view
 
 function InvoiceForm() {
   const dispatch = useDispatch();
@@ -24,19 +23,21 @@ function InvoiceForm() {
     useInvoiceContext();
   const { paymentTerms } = useSelector(getInvoiceFormReducer);
   const isDarkMode = useSelector(getIsDarkMode);
+  const [isDraft, setIsDraft] = useState(false);
 
   // from react-calendar
   const [value, onChange] = useState(new Date());
 
   // To add or update the form the form data to the form
   const { isAddingUpdatingInvoice, mutateToAddUpdate, isFormOpen, formType } =
-    useAddUpdateInvoice();
+    useAddUpdateInvoice(isDraft);
 
   useEffect(
     function () {
       if (formType === "Create") {
         reset();
       }
+      setIsDraft(false);
     },
     [formType, reset]
   );
@@ -63,7 +64,7 @@ function InvoiceForm() {
         reset();
       },
     });
-    console.log(invoiceFormData);
+    setIsDraft(false);
   }
 
   // for saving draft without form validation
@@ -86,9 +87,9 @@ function InvoiceForm() {
       ),
     };
 
+    setIsDraft(true);
     mutateToAddUpdate(invoiceFormData);
     clearErrors();
-    console.log(invoiceFormData);
   }
 
   if (isAddingUpdatingInvoice) return <Loader />;

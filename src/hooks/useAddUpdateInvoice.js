@@ -7,7 +7,7 @@ import {
 import { apiAddInvoice, apiUpdateInvoice } from "../services/apiInvoice";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export function useAddUpdateInvoice() {
+export function useAddUpdateInvoice(isDraft) {
   const dispatch = useDispatch();
   const { isFormOpen, formType } = useSelector(getInvoiceFormReducer);
   const queryClient = useQueryClient();
@@ -17,7 +17,9 @@ export function useAddUpdateInvoice() {
       mutationFn: formType === "Create" ? apiAddInvoice : apiUpdateInvoice,
       onSuccess: () => {
         toast.success(
-          `Invoice successfully ${formType === "Create" ? "added" : "updated"} `
+          `Invoice successfully ${
+            isDraft ? "drafted!" : formType === "Create" ? "added!" : "updated!"
+          } `
         );
         queryClient.invalidateQueries("invoices");
         dispatch(openingForm());
