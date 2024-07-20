@@ -6,11 +6,9 @@ import Loader from "../ui/Loader";
 import toast from "react-hot-toast";
 
 import WaitingLoader from "../ui/WaitingLoader";
-
-import { useReadFilterSortData } from "../hooks/useReadFilterSortData";
 import { useReadInvoices } from "../hooks/useReadInvoices";
-
-// split javascript bundle size using lazing loading
+import { getDashboardReducer } from "../features/dashboard/dashboardSlice";
+import { useSelector } from "react-redux";
 
 function Dashboard() {
   // for reading the mutate state of the mutation of adding the filter and sort value to supabase
@@ -19,36 +17,38 @@ function Dashboard() {
   // for reading the invoices from the api
   const { invoices, isLoading, isError } = useReadInvoices();
 
-  // for reading the filter and the sort value
-  const filterSortData = useReadFilterSortData();
+  // for reading the filter and the sort value from redux store
+  const { sortBy, filterBy } = useSelector(getDashboardReducer);
 
   // filtering the invoices data based on the filterBy value from the filterAndSort data
 
-  // if a filter value exist from supabase the filter the invoices data from the api, else if filter value value is Null from supabase, then it returns thte invoices data without filtering, so i can use the data to sort
-  const filterBy = filterSortData?.[0]?.filterBy;
+  // if a filter value exist from the redux then filter the invoices data from the api, else if filter value value is Null from supabase, then it returns thte invoices data without filtering, so i can use the data to sort
+
   const filteredData = invoices?.filter((invoice) => {
     if (filterBy === "All") return invoices;
     return filterBy ? invoice.status === filterBy.toLowerCase() : invoices;
   });
 
   // I am using the filtered data to sort from above to sort, so if there is a sortBy value on supabase, then the data will be filtered, if not then the filteredData from above will be returned without sorting.
-  const sortBy = filterSortData?.at(0)?.sortBy;
+
   let invoicesDataAfterSorting;
 
   if (sortBy === "Name") {
-    invoicesDataAfterSorting = filteredData?.sort((a, b) =>
-      a.clientName.localeCompare(b.clientName)
-    );
+    invoicesDataAfterSorting = filteredData
+      ?.slice()
+      ?.sort((a, b) => b.clientName.localeCompare(a.clientName));
   } else if (sortBy === "Status") {
-    invoicesDataAfterSorting = filteredData?.sort((a, b) =>
-      a.status.localeCompare(b.status)
-    );
+    invoicesDataAfterSorting = filteredData
+      ?.slice()
+      ?.sort((a, b) => a.status.localeCompare(b.status));
   } else if (sortBy === "Due Date") {
-    invoicesDataAfterSorting = filteredData?.sort(
-      (a, b) => a.paymentTerms - b.paymentTerms
-    );
+    invoicesDataAfterSorting = filteredData
+      ?.slice()
+      ?.sort((a, b) => a.paymentTerms - b.paymentTerms);
   } else if (sortBy === "Total") {
-    invoicesDataAfterSorting = filteredData?.sort((a, b) => a.total - b.total);
+    invoicesDataAfterSorting = filteredData
+      ?.slice()
+      ?.sort((a, b) => a.total - b.total);
   } else if (!sortBy) {
     invoicesDataAfterSorting = filteredData;
   }

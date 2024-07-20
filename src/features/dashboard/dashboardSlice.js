@@ -2,12 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // fetch the theme from the api
 
+// solve the sortBy and filterBy section
+
 const initialState = {
   filterOptionsIsOpen: false,
   sortOptionsIsOpen: false,
   filterOption: "",
   sortOption: "",
   isDarkMode: false,
+  sortBy: "",
+  filterBy: "",
 };
 
 const dashboardSlice = createSlice({
@@ -35,6 +39,12 @@ const dashboardSlice = createSlice({
     updateThemeonWebsiteReload(state, action) {
       state.isDarkMode = action.payload;
     },
+    updateSortBy(state, action) {
+      state.sortBy = action.payload;
+    },
+    updateFilterBy(state, action) {
+      state.filterBy = action.payload;
+    },
   },
 });
 
@@ -45,6 +55,8 @@ export const {
   sortOptionsButtonClick,
   toggleTheme,
   updateThemeonWebsiteReload,
+  updateSortBy,
+  updateFilterBy,
 } = dashboardSlice.actions;
 export default dashboardSlice.reducer;
 

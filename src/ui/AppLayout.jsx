@@ -3,10 +3,14 @@ import NavSideBar from "./NavSideBar";
 import InvoiceForm from "../features/invoice-form/InvoiceForm";
 import FormContextProvider from "../contexts/FormContext";
 import { useAddTheme } from "../hooks/useAddTheme";
+import { useAddFilterSortOnReload } from "../hooks/useAddFilterSortOnReload";
 
 function AppLayout() {
-  // use to add the theme from supabase
+  // custom hook to add the theme from supabase upon reload
   useAddTheme();
+
+  // custom hook to add filter and sort options from supabase upon reload
+  useAddFilterSortOnReload();
 
   return (
     <FormContextProvider>

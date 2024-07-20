@@ -2,41 +2,41 @@
 
 import { FaCheck } from "react-icons/fa";
 import { useAddFilterSort } from "../hooks/useAddFilterSort";
-
-import { useReadFilterSortData } from "../hooks/useReadFilterSortData";
-import { useSelector } from "react-redux";
-import { getIsDarkMode } from "../features/dashboard/dashboardSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getDashboardReducer,
+  getIsDarkMode,
+  updateFilterBy,
+  updateSortBy,
+} from "../features/dashboard/dashboardSlice";
 
 function ArrangeOption({ option, type }) {
+  const dispatch = useDispatch();
   const isDarkMode = useSelector(getIsDarkMode);
-  // Add the blue tick to the filter and sort
-  // try to reverse the invoices data so that if you add any data it will to the top rather that on the button
-  // color for checkbox click bg-cornflower-blue
 
-  // for reading the filter and the sort value
-  const filterSortData = useReadFilterSortData();
-
-  // getting the filterOptions and the sortOptions from the dashboard reducer
+  // for reading the filter and the sort from store
+  const { filterBy, sortBy } = useSelector(getDashboardReducer);
 
   // for adding the filterBy and sortBy to the invoiceArrangement table in supabase
   const { mutate } = useAddFilterSort();
 
+  // for selection of options
   let isOptionSelect;
 
-  if (
-    option === filterSortData?.at(0)?.filterBy ||
-    option === filterSortData?.at(0)?.sortBy
-  )
-    isOptionSelect = true;
+  if (option === filterBy || option === sortBy) isOptionSelect = true;
   else {
     isOptionSelect = false;
   }
 
+  function handleFilterSortUpdate() {
+    mutate({ type, option });
+    if (type === "sortBy") dispatch(updateSortBy(option));
+    if (type === "filterBy") dispatch(updateFilterBy(option));
+  }
+
   return (
     <div
-      onClick={() => {
-        mutate({ type, option });
-      }}
+      onClick={handleFilterSortUpdate}
       className="flex items-center cursor-pointer group gap-3 "
     >
       <button

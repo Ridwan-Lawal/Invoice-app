@@ -10,10 +10,13 @@ export function useAddTheme() {
     queryKey: ["theme"],
     queryFn: apiReadTheme,
   });
+
+  const theme = data?.[0]?.theme;
   useEffect(
     function () {
-      dispatch(updateThemeonWebsiteReload(data?.[0]?.theme));
+      if (theme === undefined) return;
+      dispatch(updateThemeonWebsiteReload(theme));
     },
-    [dispatch, data]
+    [theme, dispatch]
   );
 }

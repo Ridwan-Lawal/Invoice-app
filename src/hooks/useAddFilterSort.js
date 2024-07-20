@@ -9,7 +9,7 @@ export function useAddFilterSort() {
     // added a key this to be able to read the mutating state of this mutation only
     mutationKey: "addFilterSort",
     onSuccess: () => {
-      queryClient.invalidateQueries("invoices");
+      queryClient.invalidateQueries({ queryKey: "invoices" });
     },
     onError: (err) => toast.error(err.message),
   });
