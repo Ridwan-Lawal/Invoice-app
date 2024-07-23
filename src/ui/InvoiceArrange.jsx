@@ -6,9 +6,9 @@ import { useSelector } from "react-redux";
 
 const InvoiceContext = createContext();
 
-function InvoiceArrange({ children, onBlur }) {
+function InvoiceArrange({ children }) {
   return (
-    <div onBlur={onBlur} className="flex flex-col items-center relative ">
+    <div className="flex flex-col items-center relative ">
       <InvoiceContext.Provider value={{}}>{children}</InvoiceContext.Provider>
     </div>
   );
@@ -20,11 +20,12 @@ function Button({ children, onClick }) {
 
 function Options({ children }) {
   const isDarkMode = useSelector(getIsDarkMode);
+
   return (
     <div
-      className={` ${
+      className={` options ${
         isDarkMode ? "bg-ebony-clay" : "bg-white"
-      } absolute top-8  rounded-md py-4 space-y-3  px-3 w-[120px] shadow-xl z-10`}
+      } absolute top-8 rounded-md py-4 space-y-3  px-3 w-[120px] shadow-xl z-10`}
     >
       {children}
     </div>

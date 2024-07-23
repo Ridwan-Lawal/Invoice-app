@@ -36,21 +36,35 @@
 }
 
 /* Style for all scrollable elements */
+
+.btn-add-new {
+  @apply font-bold text-opacity-90 flex items-center justify-center w-full gap-2 text-[15px]  py-3.5 rounded-3xl  hover:bg-opacity-[0.15] transition-colors mt-8;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px; /* width of the entire scrollbar */
 }
 
-.btn-add-new {
-  @apply font-bold text-opacity-90 flex items-center justify-center w-full gap-2 text-[15px]  py-3.5 rounded-3xl  hover:bg-opacity-[0.15] transition-colors mt-8;
+.custom-scrollbar-dark::-webkit-scrollbar {
+  width: 8px; /* width of the entire scrollbar */
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent; /* color of the track */
 }
 
+.custom-scrollbar-dark::-webkit-scrollbar-track {
+  background: transparent; /* color of the track */
+}
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background-color: #e8e6f7; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  /* creates padding around scroll thumb */
+}
 
+.custom-scrollbar-dark::-webkit-scrollbar-thumb {
+  background-color: #e8e6f7; /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */
   /* creates padding around scroll thumb */
 }

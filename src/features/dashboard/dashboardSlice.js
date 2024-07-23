@@ -22,7 +22,6 @@ const dashboardSlice = createSlice({
       state.filterOption = action.payload;
     },
     optionsSortSelect(state, action) {
-      console.log(action);
       state.sortOption = action.payload;
     },
     filterOptionsButtonClick(state) {

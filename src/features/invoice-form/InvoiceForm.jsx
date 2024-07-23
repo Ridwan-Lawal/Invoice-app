@@ -93,6 +93,7 @@ function InvoiceForm() {
   }
 
   if (isAddingUpdatingInvoice) return <Loader />;
+
   return (
     <div
       className={`bg-black ${
