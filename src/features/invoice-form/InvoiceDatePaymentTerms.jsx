@@ -77,11 +77,11 @@ function InvoiceDatePaymentTerms({ value, onChange }) {
           </FormInput>
           {isCalendarOpen && (
             <div className="relative">
-              <div className="absolute min-h-[120%]">
+              <div className="absolute min-h-[100%] ">
                 <Calendar
                   onChange={onChange}
                   value={value}
-                  className={`px-2 py-3 font-medium  rounded-md shadow-2xl w-full `}
+                  className={`${isDarkMode && "react-calendar-dark"} shadow-xl`}
                 />
               </div>
             </div>

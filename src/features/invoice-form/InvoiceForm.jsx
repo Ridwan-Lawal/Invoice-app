@@ -107,10 +107,10 @@ function InvoiceForm() {
         className={` ${
           isDarkMode ? "bg-[#141424]" : "bg-white"
         }  z-50 sm:max-w-[600px] h-screen transition-all duration-500 -trans sm:rounded-r-3xl ${
-          isFormOpen ? "px-10 translate-x-0" : "px-0  -translate-x-full"
+          isFormOpen ? "px-4 sm:px-10 translate-x-0" : "px-0  -translate-x-full"
         } pt-10 `}
       >
-        <div className="px-3  h-[430px] md:h-[80vh] overflow-scroll pb-20 custom-scrollbar bg-inherit">
+        <div className="px-3  h-[73%]  md:h-[85%] overflow-scroll pb-20 custom-scrollbar bg-inherit">
           <h1
             className={`text-[24px] font-bold  ${
               isDarkMode ? "text-white" : "text-cinder"
@@ -148,7 +148,7 @@ function InvoiceForm() {
         </div>
 
         {/* discard draft and send button */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center h-[16%]   justify-between">
           <Button
             onClick={() => dispatch(openingForm())}
             type="button"
@@ -166,7 +166,7 @@ function InvoiceForm() {
             {formType === "Create" ? "Discard" : "Cancel"}
           </Button>
 
-          <div className="flex item-center gap-3 py-4">
+          <div className="flex item-center  gap-3 py-4">
             {formType === "Create" && (
               <Button
                 name="button"
@@ -179,12 +179,13 @@ function InvoiceForm() {
                 } `}
                 customStyles="py-3.5 px-5"
               >
-                Save as Draft
+                <span className="md:hidden">Draft</span>
+                <span className="hidden md:block"> Save as Draft</span>
               </Button>
             )}
 
             <Button name="save">
-              {formType === "Create" ? "Save & Send" : "Save changes"}
+              {formType === "Create" ? "Add" : "Save changes"}
             </Button>
           </div>
         </div>
