@@ -88,6 +88,7 @@ function DashBoardHeader() {
           </InvoiceArrange.Button>
           {sortOptionsIsOpen && (
             <InvoiceArrange.Options>
+              <ArrangeOption type="sortBy" option="Default" />
               <ArrangeOption type="sortBy" option="Name" />
               <ArrangeOption type="sortBy" option="Status" />
               <ArrangeOption type="sortBy" option="Due Date" />

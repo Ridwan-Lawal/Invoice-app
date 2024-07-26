@@ -14,7 +14,7 @@ function InvoiceCard({ invoice }) {
     <div
       onClick={() => navigate(`invoice/${invoice?.id}`)}
       className={` ${
-        isDarkMode ? "bg-[#1c243c] shadow-gray-950" : "bg-white shadow-gray-200"
+        isDarkMode ? "bg-[#1c243c] shadow-gray-900" : "bg-white shadow-gray-200"
       } shadow-md   border border-transparent rounded-lg hover:border-mirage  hover:scale-[1.01] cursor-pointer  transition-all duration-200 px-5 pb-4 pt-6  `}
     >
       {/* id date, name  price, status*/}

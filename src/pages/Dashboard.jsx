@@ -36,6 +36,16 @@ function Dashboard() {
 
   let invoicesDataAfterSorting;
 
+  const invoicesWithDueDateAndName = filteredData?.filter(
+    (invoice) => invoice?.clientName && invoice?.paymentDue
+  );
+
+  const invoicesWithoutDueDateandName = filteredData?.filter(
+    (invoice) => !invoice?.clientName && !invoice?.paymentDue
+  );
+
+  console.log(invoicesWithDueDateAndName, invoicesWithoutDueDateandName);
+
   if (sortBy === "Name") {
     invoicesDataAfterSorting = filteredData
       ?.slice()
@@ -52,6 +62,8 @@ function Dashboard() {
     invoicesDataAfterSorting = filteredData
       ?.slice()
       ?.sort((a, b) => a.total - b.total);
+  } else if (sortBy === "Default") {
+    invoicesDataAfterSorting = filteredData;
   } else if (!sortBy) {
     invoicesDataAfterSorting = filteredData;
   }
