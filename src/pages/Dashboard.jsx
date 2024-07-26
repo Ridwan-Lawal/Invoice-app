@@ -10,6 +10,9 @@ import { useReadInvoices } from "../hooks/useReadInvoices";
 import { getDashboardReducer } from "../features/dashboard/dashboardSlice";
 import { useSelector } from "react-redux";
 
+// fixed the bug in the form on mobile view
+// only be able to sort or filter invoice or drafts with name and date on it
+
 function Dashboard() {
   // for reading the mutate state of the mutation of adding the filter and sort value to supabase
   const isMutating = useIsMutating("addFilterSort");
@@ -57,7 +60,7 @@ function Dashboard() {
   if (isError) toast.error("Couldn't fetch data from api");
 
   return (
-    <div className="px-4 sm:px-6 mt-0 md:mt-[73px] mx-auto  -z-10 max-w-[750px] pb-32 md:pb-14">
+    <div className="px-4 sm:px-6 mt-0  md:mt-[73px] mx-auto  -z-10 max-w-[750px] pb-32 md:pb-14">
       <DashBoardHeader />
       <section className="mt-16 md:mt-12 space-y-5 transition-all duration-500 max-w-[750px] mx-auto">
         {isMutating ? (

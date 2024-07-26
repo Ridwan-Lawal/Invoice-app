@@ -100,7 +100,7 @@ function InvoiceForm() {
         isFormOpen
           ? "bg-opacity-50 z-50"
           : " overflow-hidden bg-opacity-0 -z-50"
-      }   md:top-0  fixed  h-screen w-full font-spartan  transition-all duration-200 left-0 md:left-auto`}
+      }   md:top-0  fixed  h-screen w-full font-spartan  transition-all duration-200 left-0 border top-0 md:left-auto`}
     >
       {/* overflow scroll */}
       <form
@@ -109,9 +109,9 @@ function InvoiceForm() {
           isDarkMode ? "bg-[#141424]" : "bg-white"
         }  z-50 sm:max-w-[600px] h-screen transition-all duration-500 -trans sm:rounded-r-3xl ${
           isFormOpen ? "px-4 sm:px-10 translate-x-0" : "px-0  -translate-x-full"
-        } pt-10 `}
+        } pt-10 flex flex-col justify-between`}
       >
-        <div className="px-3  h-[73%]  md:h-[85%] overflow-scroll pb-20 custom-scrollbar bg-inherit">
+        <div className="px-3  h-full border md:h-full overflow-scroll pb-20 custom-scrollbar bg-inherit">
           <h1
             className={`text-[24px] font-bold  ${
               isDarkMode ? "text-white" : "text-cinder"
@@ -149,7 +149,7 @@ function InvoiceForm() {
         </div>
 
         {/* discard draft and send button */}
-        <div className="flex items-center h-[16%]   justify-between">
+        <div className="flex items-center border h-[16%]   justify-between">
           <Button
             onClick={() => dispatch(openingForm())}
             type="button"
