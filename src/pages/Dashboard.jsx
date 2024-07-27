@@ -10,9 +10,6 @@ import { useReadInvoices } from "../hooks/useReadInvoices";
 import { getDashboardReducer } from "../features/dashboard/dashboardSlice";
 import { useSelector } from "react-redux";
 
-// fixed the bug in the form on mobile view
-// only be able to sort or filter invoice or drafts with name and date on it
-
 function Dashboard() {
   // for reading the mutate state of the mutation of adding the filter and sort value to supabase
   const isMutating = useIsMutating("addFilterSort");
@@ -35,16 +32,6 @@ function Dashboard() {
   // I am using the filtered data to sort from above to sort, so if there is a sortBy value on supabase, then the data will be filtered, if not then the filteredData from above will be returned without sorting.
 
   let invoicesDataAfterSorting;
-
-  const invoicesWithDueDateAndName = filteredData?.filter(
-    (invoice) => invoice?.clientName && invoice?.paymentDue
-  );
-
-  const invoicesWithoutDueDateandName = filteredData?.filter(
-    (invoice) => !invoice?.clientName && !invoice?.paymentDue
-  );
-
-  console.log(invoicesWithDueDateAndName, invoicesWithoutDueDateandName);
 
   if (sortBy === "Name") {
     invoicesDataAfterSorting = filteredData
