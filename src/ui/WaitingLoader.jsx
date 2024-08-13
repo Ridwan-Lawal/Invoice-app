@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { ColorRing, Puff } from "react-loader-spinner";
+import { ColorRing, Puff, TailSpin } from "react-loader-spinner";
 import { useSelector } from "react-redux";
 import { getIsDarkMode } from "../features/dashboard/dashboardSlice";
 
@@ -27,6 +27,7 @@ function WaitingLoader({ marginTop }) {
     </div>
   );
 }
+export default WaitingLoader;
 
 export function StatusLoader() {
   const isDarkMode = useSelector(getIsDarkMode);
@@ -43,4 +44,16 @@ export function StatusLoader() {
   );
 }
 
-export default WaitingLoader;
+export function Spin() {
+  return (
+    <TailSpin
+      visible={true}
+      height="20"
+      width="20"
+      color="#ffffff"
+      ariaLabel="puff-loading"
+      wrapperStyle={{}}
+      wrapperClass=""
+    />
+  );
+}

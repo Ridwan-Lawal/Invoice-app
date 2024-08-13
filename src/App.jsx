@@ -6,6 +6,9 @@ import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { getIsDarkMode } from "./features/dashboard/dashboardSlice";
 import Loader from "./ui/Loader";
+import Login from "./pages/Login";
+import ProtectedRoute from "./features/authentication/ProtectedRoute";
+import SignUp from "./pages/SignUp";
 
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Invoice = lazy(() => import("./pages/Invoice"));
@@ -24,7 +27,7 @@ function App() {
 
   return (
     <div
-      className={`h-screen  font-spartan  overflow-hidden  custom-scrollbar ${
+      className={`min-h-screen  font-spartan  overflow-hidden  custom-scrollbar ${
         isDarkMode ? "bg-[#141424]" : "bg-lightBackgroundColor"
       } `}
     >
@@ -33,10 +36,19 @@ function App() {
         <BrowserRouter>
           <Suspense fallback={<Loader />}>
             <Routes>
-              <Route element={<AppLayout />}>
+              <Route
+                element={
+                  <ProtectedRoute>
+                    <AppLayout />
+                  </ProtectedRoute>
+                }
+              >
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/invoice/:invoiceId" element={<Invoice />} />
               </Route>
+              <Route path="login" element={<Login />} />
+              <Route path="signup" element={<SignUp />} />
+
               <Route path="*" element={<PageNotFound />} />
             </Routes>
           </Suspense>

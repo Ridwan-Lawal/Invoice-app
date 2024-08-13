@@ -9,10 +9,13 @@ import {
   updateFilterBy,
   updateSortBy,
 } from "../features/dashboard/dashboardSlice";
+import { useSearchParams } from "react-router-dom";
 
-function ArrangeOption({ option, type }) {
+function ArrangeOption({ type, option }) {
   const dispatch = useDispatch();
   const isDarkMode = useSelector(getIsDarkMode);
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   // for reading the filter and the sort from store
   const { filterBy, sortBy } = useSelector(getDashboardReducer);
@@ -32,11 +35,13 @@ function ArrangeOption({ option, type }) {
     mutate({ type, option });
     if (type === "sortBy") dispatch(updateSortBy(option));
     if (type === "filterBy") dispatch(updateFilterBy(option));
+    searchParams.set(type, option);
+    setSearchParams(searchParams);
   }
 
   return (
     <div
-      onClick={handleFilterSortUpdate}
+      onClick={() => handleFilterSortUpdate()}
       className="flex items-center cursor-pointer group gap-3 "
     >
       <button

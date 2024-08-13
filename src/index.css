@@ -64,7 +64,8 @@
 }
 
 .custom-scrollbar-dark::-webkit-scrollbar-thumb {
-  background-color: #e8e6f7; /* color of the scroll thumb */
+  background-color: #161933; /* color of the scroll thumb */
+  background-opacity: 0.1;
   border-radius: 20px; /* roundness of the scroll thumb */
   /* creates padding around scroll thumb */
 }
@@ -124,4 +125,18 @@ div.react-calendar-dark {
   background: #6865e6;
   border: 2px solid red;
   color: white;
+}
+
+/* login */
+
+.login-form-input {
+  @apply py-2.5 px-4 rounded-md focus:outline-none border-cornflower-blue focus:border text-sm;
+}
+
+.pagination span {
+  @apply text-white font-medium;
+}
+
+.page-control-btn {
+  @apply flex gap-1  font-medium;
 }

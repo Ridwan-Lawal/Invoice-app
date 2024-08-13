@@ -4,8 +4,11 @@ import InvoiceForm from "../features/invoice-form/InvoiceForm";
 import FormContextProvider from "../contexts/FormContext";
 import { useAddTheme } from "../hooks/useAddTheme";
 import { useAddFilterSortOnReload } from "../hooks/useAddFilterSortOnReload";
+import { getIsDarkMode } from "../features/dashboard/dashboardSlice";
+import { useSelector } from "react-redux";
 
 function AppLayout() {
+  const isDarkMode = useSelector(getIsDarkMode);
   // custom hook to add the theme from supabase upon reload
   useAddTheme();
 
@@ -21,7 +24,11 @@ function AppLayout() {
             <InvoiceForm />
           </div>
         </div>
-        <main className=" h-screen overflow-auto md:w-[100vw]  right-0 bottom-0 custom-scrollbar  ">
+        <main
+          className={` min-h-screen overflow-auto md:w-[100vw]  right-0 bottom-0 ${
+            isDarkMode ? "custom-scrollbar-dark" : "custom-scrollbar"
+          } `}
+        >
           <Outlet />
         </main>
       </div>

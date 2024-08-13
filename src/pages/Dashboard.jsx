@@ -9,6 +9,11 @@ import WaitingLoader from "../ui/WaitingLoader";
 import { useReadInvoices } from "../hooks/useReadInvoices";
 import { getDashboardReducer } from "../features/dashboard/dashboardSlice";
 import { useSelector } from "react-redux";
+import {
+  apiDeleteManyInvoices,
+  apiInvoiceManyRows,
+} from "../services/apiInvoice";
+import { useEffect } from "react";
 
 function Dashboard() {
   // for reading the mutate state of the mutation of adding the filter and sort value to supabase
@@ -28,6 +33,15 @@ function Dashboard() {
     if (filterBy === "All") return invoices;
     return filterBy ? invoice.status === filterBy.toLowerCase() : invoices;
   });
+
+  useEffect(() => {
+    function goto() {
+      apiDeleteManyInvoices();
+      apiInvoiceManyRows();
+    }
+
+    goto();
+  }, []);
 
   // I am using the filtered data to sort from above to sort, so if there is a sortBy value on supabase, then the data will be filtered, if not then the filteredData from above will be returned without sorting.
 
@@ -64,12 +78,16 @@ function Dashboard() {
       <section className="mt-16 md:mt-12 space-y-5 transition-all duration-500 max-w-[750px] mx-auto">
         {isMutating ? (
           <WaitingLoader />
-        ) : (
+        ) : invoicesDataAfterSorting.length ? (
           invoicesDataAfterSorting
-            .reverse()
+            ?.reverse()
             ?.map((invoice) => (
               <InvoiceCard key={invoice.id} invoice={invoice} />
             ))
+        ) : (
+          <div className="flex justify-center items-center">
+            <img src="/illustration-empty.svg" alt="No available invoice" />
+          </div>
         )}
       </section>
     </div>

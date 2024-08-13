@@ -8,7 +8,7 @@ export function useReadInvoices() {
     data: invoices,
   } = useQuery({
     queryKey: ["invoices"],
-    queryFn: apiReadInvoice,
+    queryFn: () => apiReadInvoice(),
   });
 
   return { isLoading, isError, invoices };

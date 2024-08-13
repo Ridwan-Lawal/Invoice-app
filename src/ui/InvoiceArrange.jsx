@@ -8,7 +8,7 @@ const InvoiceContext = createContext();
 
 function InvoiceArrange({ children }) {
   return (
-    <div className="flex flex-col items-center relative ">
+    <div className="arrangement-block flex flex-col items-center relative ">
       <InvoiceContext.Provider value={{}}>{children}</InvoiceContext.Provider>
     </div>
   );
@@ -23,7 +23,7 @@ function Options({ children }) {
 
   return (
     <div
-      className={` options ${
+      className={`options ${
         isDarkMode ? "bg-ebony-clay" : "bg-white"
       } absolute top-8 rounded-md py-4 space-y-3  px-3 w-[120px] shadow-xl z-10`}
     >

@@ -21,7 +21,7 @@ export function useAddUpdateInvoice(isDraft) {
             isDraft ? "drafted!" : formType === "Create" ? "added!" : "updated!"
           } `
         );
-        queryClient.invalidateQueries("invoices");
+        queryClient.invalidateQueries({ queryKey: ["invoices"] });
         dispatch(openingForm());
       },
       onError: (err) => {

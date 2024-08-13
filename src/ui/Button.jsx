@@ -8,16 +8,19 @@ function Button({
   onClick,
   name,
   type,
+  disabled,
+  borderRadius = "rounded-3xl",
 }) {
   const defaultStyles = "px-6 py-3.5";
   return (
     <button
+      disabled={disabled}
       onClick={onClick}
       name={name}
       type={type}
       className={`${fontSize} font-bold  hover:bg-opacity-75 hover:scale-[1.02] transition-all ${
         customStyles || defaultStyles
-      }  rounded-3xl ${textColor}   flex items-center ${bgColor}`}
+      } ${borderRadius}  ${textColor}   flex items-center ${bgColor}`}
     >
       {children}
     </button>

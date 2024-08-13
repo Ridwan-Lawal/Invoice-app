@@ -14,6 +14,15 @@ export async function apiAddInvoice(newInvoice) {
   return data;
 }
 
+// api delete many rows
+export async function apiDeleteManyInvoices() {
+  const invoicesId = invoiceDatas?.map((invoice) => invoice.id);
+  console.log(invoicesId);
+  const response = await supabase.from("Invoice").delete().in("id", invoicesId);
+
+  return response;
+}
+
 // api add many rows
 export async function apiInvoiceManyRows() {
   const { data, error } = await supabase
@@ -27,8 +36,6 @@ export async function apiInvoiceManyRows() {
 
   return data;
 }
-
-apiInvoiceManyRows();
 
 // api to read data from the api
 export async function apiReadInvoice() {

@@ -5,6 +5,7 @@ import {
   toggleTheme,
 } from "../features/dashboard/dashboardSlice";
 import { useUpdateTheme } from "../hooks/useUpdateTheme";
+import Logout from "../features/authentication/Logout";
 
 function NavSideBar() {
   const { isFormOpen } = useSelector(getInvoiceFormReducer);
@@ -38,13 +39,19 @@ function NavSideBar() {
           </section>
 
           {/* light and dark theme switch */}
-          <section onClick={handlethemeSwitch} className="w-fit cursor-pointer">
-            {isDarkMode ? (
-              <img src="/icon-sun.svg" alt="Light mode" />
-            ) : (
-              <img src="/icon-moon.svg" alt="Dark mode" />
-            )}
-          </section>
+          <div className="flex items-center gap-6 md:flex-col">
+            <section
+              onClick={handlethemeSwitch}
+              className="w-fit cursor-pointer"
+            >
+              {isDarkMode ? (
+                <img src="/icon-sun.svg" alt="Light mode" />
+              ) : (
+                <img src="/icon-moon.svg" alt="Dark mode" />
+              )}
+            </section>
+            <Logout />
+          </div>
         </div>
 
         {/* image avatar */}
