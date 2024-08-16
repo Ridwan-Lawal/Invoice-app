@@ -8,13 +8,13 @@ import { useSignup } from "./useSignup";
 import { Spin } from "../../ui/WaitingLoader";
 import { useNavigate } from "react-router-dom";
 
-//  handle the theme for the signup and the login page
 //  handle the filter and sort value
-// Each user needs to have their own invoice data, try looking how you can fetch data with each users id.
 
 function SignUpForm() {
   const { mutateSignUp, isSigningUp } = useSignup();
   const navigate = useNavigate();
+  const isDarkmode = useSelector(getIsDarkMode);
+
   const {
     register,
     reset,
@@ -25,9 +25,6 @@ function SignUpForm() {
 
   console.log(reset);
   //   register reset getVAlues, handleSubmit, formState:{errors}
-
-  const isDarkmode = true;
-  useSelector(getIsDarkMode);
 
   function onSubmit({ fullname, emailaddress, password, avatar }) {
     mutateSignUp({ fullname, emailaddress, password, avatar });

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { HiFunnel } from "react-icons/hi2";
 import InvoiceArrange from "../../ui/InvoiceArrange";
 import ArrangeOption from "../../ui/ArrangeOption";
@@ -13,16 +14,13 @@ import {
 
 import DasboardOptionsButtonContent from "../../ui/DasboardOptionsButtonContent";
 import { openingForm, updateFormType } from "../invoice-form/invoiceFormSlice";
-import { useReadInvoices } from "../../hooks/useReadInvoices";
 
-function DashBoardHeader() {
+function DashBoardHeader({ invoicesLength }) {
   const { filterOptionsIsOpen, sortOptionsIsOpen } = useSelector(
     (store) => store.dashboard
   );
   const isDarkMode = useSelector(getIsDarkMode);
   const dispatch = useDispatch();
-  // to get the length of invoices
-  const { invoices } = useReadInvoices();
 
   return (
     <div className="flex  justify-between mt-7 font-spartan max-w-[710px] xl:max-w-[750px] mx-auto  ">
@@ -36,9 +34,9 @@ function DashBoardHeader() {
         </h1>
         <p className="text-[13.5px] text-gray-400 font-semibold   -mt-2 md:mt-0 ">
           <span className="hidden md:block">
-            There are total of {invoices?.length} invoices
+            There are total of {invoicesLength} invoices
           </span>
-          <span className="md:hidden">{invoices?.length} invoices</span>
+          <span className="md:hidden">{invoicesLength} invoices</span>
         </p>
       </section>
 

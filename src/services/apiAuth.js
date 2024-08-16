@@ -36,7 +36,7 @@ export async function apiLogout() {
 
 export async function apiSignUp({ emailaddress, password, fullname }) {
   console.log(emailaddress, password);
-  const { data, error } = await supabase.auth.signUp({
+  const { data: user, error } = await supabase.auth.signUp({
     email: emailaddress,
     password,
     options: {
@@ -47,7 +47,21 @@ export async function apiSignUp({ emailaddress, password, fullname }) {
   });
   if (error) throw new Error(error.message);
 
-  // avatar upload
+  // theme setting creation
+  const { error: settingsError } = await supabase
+    .from("Theme")
+    .insert([{ user_id: user?.user?.id, theme: false }])
+    .select();
 
-  return data;
+  if (settingsError) throw new Error(settingsError.message);
+
+  // filter and sort settings
+  const { error: arrangementErrors } = await supabase
+    .from("InvoiceArrangement")
+    .insert([{ user_id: user?.user?.id, filterBy: null, sortBy: null }])
+    .select();
+
+  if (arrangementErrors) throw new Error(arrangementErrors.message);
+
+  return user;
 }

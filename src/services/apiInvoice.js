@@ -1,9 +1,8 @@
 import { supabase } from "./supabase";
 
-import invoiceDatas from "../data/data.json";
-
 // api to add invoice to supabase
 export async function apiAddInvoice(newInvoice) {
+  console.log(newInvoice);
   const { data, error } = await supabase
     .from("Invoice")
     .insert(newInvoice)
@@ -14,43 +13,25 @@ export async function apiAddInvoice(newInvoice) {
   return data;
 }
 
-// api delete many rows
-export async function apiDeleteManyInvoices() {
-  const invoicesId = invoiceDatas?.map((invoice) => invoice.id);
-  console.log(invoicesId);
-  const response = await supabase.from("Invoice").delete().in("id", invoicesId);
-
-  return response;
-}
-
-// api add many rows
-export async function apiInvoiceManyRows() {
+// api to read data from the api
+export async function apiReadInvoice(userId) {
   const { data, error } = await supabase
     .from("Invoice")
-    .insert(invoiceDatas)
-    .select();
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return data;
-}
-
-// api to read data from the api
-export async function apiReadInvoice() {
-  const { data, error } = await supabase.from("Invoice").select("*");
+    .select("*")
+    .eq("user_id", userId);
 
   if (error) throw new Error(error.message);
   return data;
 }
 
 // api to read invoce by id
-export async function apiReadInvoiceById(invoiceId) {
+export async function apiReadInvoiceById({ invoiceId, user_id }) {
+  console.log(invoiceId, user_id);
   const { data, error } = await supabase
     .from("Invoice")
     .select("*")
-    .eq("id", invoiceId.queryKey[1])
+    .eq("user_id", user_id)
+    .eq("id", invoiceId)
     .single();
 
   if (error) throw new Error(error.message);
@@ -58,17 +39,22 @@ export async function apiReadInvoiceById(invoiceId) {
 }
 
 //  api to delete invoice
-export async function apiDeleteInvoice(invoiceId) {
-  const { error } = await supabase.from("Invoice").delete().eq("id", invoiceId);
+export async function apiDeleteInvoice({ invoiceId, user_id }) {
+  const { error } = await supabase
+    .from("Invoice")
+    .delete()
+    .eq("user_id", user_id)
+    .eq("id", invoiceId);
 
   if (error) throw new error(`${error.message}: unable to delete invoice!`);
 }
 
 // api to mark invoice as paid
-export async function apiMarkAsPaid(invoiceId) {
+export async function apiMarkAsPaid({ invoiceId, user_id }) {
   const { data, error } = await supabase
     .from("Invoice")
     .update({ status: "paid" })
+    .eq("user_id", user_id)
     .eq("id", invoiceId)
     .select();
 
@@ -90,23 +76,31 @@ export async function apiUpdateInvoice(invoice) {
   return data;
 }
 
-export async function apiReadTheme() {
-  let { data: Theme, error } = await supabase.from("Theme").select("theme");
+// continue adding the user_id from this point onwards
+
+export async function apiReadTheme(user_id) {
+  console.log(user_id);
+  let { data: Theme, error } = await supabase
+    .from("Theme")
+    .select("theme")
+    .eq("user_id", user_id);
 
   if (error) throw new Error(error.message);
 
   return Theme;
 }
 
-export async function apiUpdateTheme(theme) {
-  console.log(theme);
+// find a way to update the theme for each user
+
+export async function apiUpdateTheme({ theme, user_id }) {
+  console.log({ theme }, user_id);
   const { data, error } = await supabase
     .from("Theme")
-    .update({ theme })
-    .eq("id", 1)
+    .update({ theme, user_id })
+    .eq("user_id", user_id)
     .select();
 
-  if (error) throw new Error("Couldn't update theme!");
+  if (error) throw new Error(error.message);
 
   return data;
 }

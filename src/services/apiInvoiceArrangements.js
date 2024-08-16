@@ -19,14 +19,14 @@ export async function apiFilterInvoices(filterBy) {
 
 // DO THIS NEXT
 // then i will read the data from the data and and use the function above for the filtering, and sort it manually
-export async function apiUpdateFilterSort({ type, option }) {
+export async function apiUpdateFilterSort({ type, option, user_id }) {
   // the type and option is an object coming from each option i click in the filter or sort modal.
   // the 'type' is for distinguishing if it is filterBy or sortBy
   const { data, error } = await supabase
     .from("InvoiceArrangement")
     .update({ [type]: option })
-    .eq("id", "1")
-    .single();
+    .eq("user_id", user_id)
+    .select();
 
   if (error) throw new Error(error.message);
 

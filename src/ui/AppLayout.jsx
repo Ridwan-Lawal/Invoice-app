@@ -9,7 +9,9 @@ import { useSelector } from "react-redux";
 
 function AppLayout() {
   const isDarkMode = useSelector(getIsDarkMode);
+
   // custom hook to add the theme from supabase upon reload
+
   useAddTheme();
 
   // custom hook to add filter and sort options from supabase upon reload
@@ -25,7 +27,7 @@ function AppLayout() {
           </div>
         </div>
         <main
-          className={` min-h-screen overflow-auto md:w-[100vw]  right-0 bottom-0 ${
+          className={` h-screen overflow-auto md:w-[100vw]  right-0 bottom-0 ${
             isDarkMode ? "custom-scrollbar-dark" : "custom-scrollbar"
           } `}
         >

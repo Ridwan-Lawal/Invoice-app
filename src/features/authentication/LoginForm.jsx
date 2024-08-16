@@ -1,17 +1,25 @@
 // import { useSelector } from "react-redux";
 // import { getIsDarkMode } from "../dashboard/dashboardSlice";
 
-import { useState } from "react";
 import Button from "../../ui/Button";
 import { useLogin } from "./useLogin";
 import { Spin } from "../../ui/WaitingLoader";
 import FormInput from "./FormInput";
 import FormLogo from "./FormLogo";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+    reset,
+    getValues,
+  } = useForm();
+
+  console.log(getValues());
+
   const { loginMutate, isLoggingIn } = useLogin();
   const navigate = useNavigate();
   // const isDarkmode = useSelector(getIsDarkMode);
@@ -19,12 +27,9 @@ function LoginForm() {
   const isDarkmode = true;
   console.log(isDarkmode);
 
-  function handleLogin(e) {
-    e.preventDefault();
-    if (!email || !password) return;
-    loginMutate({ email, password });
-    setEmail("");
-    setPassword("");
+  function onSubmit(data) {
+    console.log(data);
+    loginMutate(data, { onSettled: () => reset() });
   }
 
   return (
@@ -45,18 +50,16 @@ function LoginForm() {
       </h1>
       {/* form */}
       <form
-        onSubmit={handleLogin}
+        onSubmit={handleSubmit(onSubmit)}
         className={`space-y-8 mt-8 max-w-[400px] w-full  py-8 px-8 rounded-lg ${
           isDarkmode ? "bg-slate-900" : "bg-white"
         } `}
       >
         <div className="space-y-6">
-          <FormInput label="Email Address">
+          <FormInput label="Email Address" errors={errors?.email?.message}>
             <input
               type="text"
               name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               placeholder="xyz@invoice.app"
               id="email"
               className={`login-form-input ${
@@ -64,22 +67,34 @@ function LoginForm() {
                   ? "bg-ebony-clay text-white"
                   : "bg-gray-100 text-cinder"
               } `}
+              {...register("email", {
+                required: "Fill in an email address!",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Fill in a correct email address!",
+                },
+              })}
             />
           </FormInput>
 
-          <FormInput label="Password">
+          <FormInput label="Password" errors={errors?.password?.message}>
             <input
               type="password"
               name="password"
               placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               id="password"
               className={`login-form-input ${
                 isDarkmode
                   ? "bg-ebony-clay text-white"
                   : "bg-gray-100 text-cinder"
               } `}
+              {...register("password", {
+                required: "Enter your password",
+                minLength: {
+                  value: 8,
+                  message: "Password must be more that 8 characters!",
+                },
+              })}
             />
           </FormInput>
         </div>

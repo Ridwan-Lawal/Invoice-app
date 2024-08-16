@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "./useUser";
 import { useEffect } from "react";
 import Loader from "../../ui/Loader";
+import toast from "react-hot-toast";
 
 // Next is pagination
 
 function ProtectedRoute({ children }) {
   // get the user authenticated state
-  const { isLoading, isAuthenticated } = useUser();
+  const { isLoading, isAuthenticated, isPaused } = useUser();
   const navigate = useNavigate();
 
   //   if user is not authenticated when any routes is clicked navigate to the dashbord
@@ -19,8 +20,10 @@ function ProtectedRoute({ children }) {
     [isAuthenticated, isLoading, navigate]
   );
 
-
-  
+  if (isPaused)
+    toast.error(
+      "You don't have an internet connection! Please connect to a network"
+    );
 
   //   if user's data is still loading
   if (isLoading) return <Loader />;

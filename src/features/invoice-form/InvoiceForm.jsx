@@ -14,6 +14,7 @@ import { formatInvoiceDate, generateRandomId } from "../../utils/helper";
 import { useAddUpdateInvoice } from "../../hooks/useAddUpdateInvoice.js";
 import Loader from "../../ui/Loader";
 import { getIsDarkMode } from "../dashboard/dashboardSlice.js";
+import { useUser } from "../authentication/useUser.js";
 
 // handle the calender size on mobile view
 
@@ -24,6 +25,7 @@ function InvoiceForm() {
   const { paymentTerms } = useSelector(getInvoiceFormReducer);
   const isDarkMode = useSelector(getIsDarkMode);
   const [isDraft, setIsDraft] = useState(false);
+  const { user } = useUser();
 
   // from react-calendar
   const [value, onChange] = useState(new Date());
@@ -46,6 +48,7 @@ function InvoiceForm() {
     const futureDate = addDays(value, paymentTerms);
     const invoiceFormData = {
       id: generateRandomId(),
+
       ...data,
       paymentDue: formatInvoiceDate(futureDate),
       paymentTerms,
@@ -73,6 +76,7 @@ function InvoiceForm() {
 
     const invoiceFormData = {
       id: generateRandomId(),
+      user_id: user?.id,
       ...data,
       paymentDue: null,
       paymentTerms,

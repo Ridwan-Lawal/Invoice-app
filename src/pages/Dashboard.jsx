@@ -9,11 +9,6 @@ import WaitingLoader from "../ui/WaitingLoader";
 import { useReadInvoices } from "../hooks/useReadInvoices";
 import { getDashboardReducer } from "../features/dashboard/dashboardSlice";
 import { useSelector } from "react-redux";
-import {
-  apiDeleteManyInvoices,
-  apiInvoiceManyRows,
-} from "../services/apiInvoice";
-import { useEffect } from "react";
 
 function Dashboard() {
   // for reading the mutate state of the mutation of adding the filter and sort value to supabase
@@ -33,15 +28,6 @@ function Dashboard() {
     if (filterBy === "All") return invoices;
     return filterBy ? invoice.status === filterBy.toLowerCase() : invoices;
   });
-
-  useEffect(() => {
-    function goto() {
-      apiDeleteManyInvoices();
-      apiInvoiceManyRows();
-    }
-
-    goto();
-  }, []);
 
   // I am using the filtered data to sort from above to sort, so if there is a sortBy value on supabase, then the data will be filtered, if not then the filteredData from above will be returned without sorting.
 
@@ -74,11 +60,11 @@ function Dashboard() {
 
   return (
     <div className="px-4 sm:px-6 mt-0  md:mt-[73px] mx-auto  -z-10 max-w-[750px] pb-32 md:pb-14">
-      <DashBoardHeader />
+      <DashBoardHeader invoicesLength={invoicesDataAfterSorting?.length} />
       <section className="mt-16 md:mt-12 space-y-5 transition-all duration-500 max-w-[750px] mx-auto">
         {isMutating ? (
           <WaitingLoader />
-        ) : invoicesDataAfterSorting.length ? (
+        ) : invoicesDataAfterSorting?.length ? (
           invoicesDataAfterSorting
             ?.reverse()
             ?.map((invoice) => (
