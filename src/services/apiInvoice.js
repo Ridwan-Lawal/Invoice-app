@@ -26,7 +26,6 @@ export async function apiReadInvoice(userId) {
 
 // api to read invoce by id
 export async function apiReadInvoiceById({ invoiceId, user_id }) {
-  console.log(invoiceId, user_id);
   const { data, error } = await supabase
     .from("Invoice")
     .select("*")
@@ -79,7 +78,6 @@ export async function apiUpdateInvoice(invoice) {
 // continue adding the user_id from this point onwards
 
 export async function apiReadTheme(user_id) {
-  console.log(user_id);
   let { data: Theme, error } = await supabase
     .from("Theme")
     .select("theme")
@@ -93,7 +91,6 @@ export async function apiReadTheme(user_id) {
 // find a way to update the theme for each user
 
 export async function apiUpdateTheme({ theme, user_id }) {
-  console.log({ theme }, user_id);
   const { data, error } = await supabase
     .from("Theme")
     .update({ theme, user_id })

@@ -4,7 +4,7 @@ import { useUser } from "./useUser";
 
 export function useCreateThemeSettings() {
   const { user } = useUser();
-  console.log(user);
+
   const { mutate: createThemeSettings, isLoading: isCreatingSettings } =
     useMutation({
       mutationFn: (theme) =>

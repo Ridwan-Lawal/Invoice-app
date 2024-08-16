@@ -1,6 +1,4 @@
-import { useSelector } from "react-redux";
 import FormLogo from "./FormLogo";
-import { getIsDarkMode } from "../dashboard/dashboardSlice";
 import FormInput from "./FormInput";
 import Button from "../../ui/Button";
 import { useForm } from "react-hook-form";
@@ -23,11 +21,11 @@ function SignUpForm() {
     formState: { errors },
   } = useForm();
 
-  console.log(reset);
-  //   register reset getVAlues, handleSubmit, formState:{errors}
-
   function onSubmit({ fullname, emailaddress, password, avatar }) {
-    mutateSignUp({ fullname, emailaddress, password, avatar });
+    mutateSignUp(
+      { fullname, emailaddress, password, avatar },
+      { onSuccess: () => reset() }
+    );
   }
 
   return (

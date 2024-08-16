@@ -15,17 +15,13 @@ function LoginForm() {
     handleSubmit,
     register,
     reset,
-    getValues,
   } = useForm();
-
-  console.log(getValues());
 
   const { loginMutate, isLoggingIn } = useLogin();
   const navigate = useNavigate();
   // const isDarkmode = useSelector(getIsDarkMode);
 
   const isDarkmode = true;
-  console.log(isDarkmode);
 
   function onSubmit(data) {
     console.log(data);

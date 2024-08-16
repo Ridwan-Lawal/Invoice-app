@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 
 export function useLogout() {
   const navigate = useNavigate();
+
   const { mutate: logoutMutate, isLoading } = useMutation({
     mutationFn: apiLogout,
     onSuccess: () => {

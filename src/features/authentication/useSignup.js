@@ -13,7 +13,6 @@ export function useSignup() {
         `Welcome, ${user?.user_metadata?.fullname?.split(" ")?.at(0)}`
       );
       navigate("/");
-      console.log(user);
     },
     onError: (err) => toast.error(err.message),
   });

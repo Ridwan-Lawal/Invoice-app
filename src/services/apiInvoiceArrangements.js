@@ -11,7 +11,6 @@ export async function apiFilterInvoices(filterBy) {
 
   if (error) throw new Error("couldn't filter invoices");
 
-  console.log(data);
   return data;
 }
 

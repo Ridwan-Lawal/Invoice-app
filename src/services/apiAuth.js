@@ -35,7 +35,6 @@ export async function apiLogout() {
 }
 
 export async function apiSignUp({ emailaddress, password, fullname }) {
-  console.log(emailaddress, password);
   const { data: user, error } = await supabase.auth.signUp({
     email: emailaddress,
     password,
