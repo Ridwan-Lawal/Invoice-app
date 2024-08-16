@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 function SignUpForm() {
   const { mutateSignUp, isSigningUp } = useSignup();
   const navigate = useNavigate();
-  const isDarkmode = useSelector(getIsDarkMode);
+  const isDarkmode = true;
 
   const {
     register,
